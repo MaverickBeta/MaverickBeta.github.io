@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hongyi Qian | Data Science</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --text-secondary: #555;
+      --text-muted: #888;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --border: #e5e5e5;
+      --bg: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --tag-bg: #eef2ff;
+      --tag-text: #4f46e5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-name {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-name:hover {
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-links a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover {
+      background: var(--bg-secondary);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links a.active {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    /* Sections */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    section + section {
+      border-top: 1px solid var(--border);
+    }
+
+    /* Hero / Main */
+    #main {
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .info-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .contact-line {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .contact-line a {
+      color: var(--accent);
+    }
+
+    /* Section titles */
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.3px;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .card-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card ul li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .card ul li::before {
+      content: "\2013";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+    }
+
+    /* Project cards */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .project-card h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .project-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .project-card .project-link {
+      font-size: 13px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .project-link svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Skills */
+    .skill-group {
+      margin-bottom: 20px;
+    }
+
+    .skill-group h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .award-item {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .award-item strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .award-item span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .nav-links {
+        gap: 0;
+      }
+
+      .nav-links a {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#main" class="nav-name">Hongyi Qian</a>
+      <div class="nav-links">
+        <a href="#main">Main</a>
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main / Hero -->
+  <section id="main">
+    <h1>Hongyi Qian</h1>
+    <p class="subtitle">Data Science · Class of 2027</p>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">University</span>
+        <span class="info-value">Duke Kunshan & Duke University</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">GPA</span>
+        <span class="info-value">3.82 / 4.0 (Duke: 4.0 / 4.0)</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Degree</span>
+        <span class="info-value">B.S. Data Science (DKU) & B.A. Data Science (Duke)</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Study Abroad</span>
+        <span class="info-value">Fall 2025 at Duke University, Durham, NC</span>
+      </div>
+    </div>
+
+    <p class="contact-line">
+      <a href="mailto:hq38@duke.edu">hq38@duke.edu</a> · +86 18862250806 ·
+      <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
+    </p>
+  </section>
+
+  <!-- Research Experience -->
+  <section id="research">
+    <h2>Research Experience</h2>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Data Science at DKU</h3>
+        <span style="font-size: 13px; color: var(--text-muted);">Dec 2024 – Present</span>
+      </div>
+      <p class="card-meta">
+        Student Research Assistant to Dr. Kaizhu Huang, Professor of ECE, DKU · Director of Data Science Research Center
+      </p>
+      <ul>
+        <li>Investigating CNN representations by applying Sparse Autoencoders to expand channel dimensions, extracting disentangled class-specific features.</li>
+        <li>Evaluating representation evolution to discover underlying classification mechanisms.</li>
+        <li>Exploring Joint Energy Based Models for classification and generation mechanism evaluation.</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">SAE</span>
+        <span class="tag">CNN</span>
+        <span class="tag">Channel Expansion</span>
+        <span class="tag">JEM</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Machine Learning at Duke</h3>
+        <span style="font-size: 13px; color: var(--text-muted);">Sep 2025 – Present</span>
+      </div>
+      <p class="card-meta">
+        Student Research Assistant to Dr. Lawrence Carin, Professor of ECE & CS, Duke University
+      </p>
+      <ul>
+        <li>Applying SAEs to interpret activation patterns in autoregressive models (Gemma-2-2b) and modified transformers, focusing on mechanistic understanding of detoxification.</li>
+        <li>Investigating transformer in-context learning capabilities through literature review and empirical analysis of out-of-distribution generalization.</li>
+        <li>Investigating representation of virtual embeddings in transformers for in-context learning theory verification and architecture improvement.</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">SAE</span>
+        <span class="tag">Transformer</span>
+        <span class="tag">LLM Safety</span>
+        <span class="tag">In-Context Learning</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected Projects -->
+  <section id="projects">
+    <h2>Selected Projects</h2>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <h3>SAEBench Experiments</h3>
+        <p>Notebooks, configs, and training scripts for SAEBench & SAELens experiments. Foundation tooling for SAE research workflow.</p>
+        <a href="https://github.com/MaverickBeta/sae-bench-project" target="_blank" class="project-link">
+          View on GitHub
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <h3>SileMa Sentiment Analysis</h3>
+        <p>Interactive sentiment analysis dashboard for SileMa app reviews from Weibo and Xiaohongshu with cross-platform engagement visualization.</p>
+        <a href="https://github.com/MaverickBeta/Stat401_Final_Group_Project" target="_blank" class="project-link">
+          View on GitHub
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <h3>NBA Analytics & Prediction</h3>
+        <p>Mathematical Contest in Modeling project. NBA player performance prediction using Gaussian Process Regression and Random Forest.</p>
+        <a href="https://github.com/MaverickBeta/DKU_2026" target="_blank" class="project-link">
+          View on GitHub
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Skills & Awards -->
+  <section id="skills">
+    <h2>Skills & Awards</h2>
+
+    <div class="skill-group">
+      <h4>Languages</h4>
+      <p style="font-size: 14px; color: var(--text-secondary);">English (fluent) · Mandarin (native) · GRE 321</p>
+    </div>
+
+    <div class="skill-group">
+      <h4>Programming Languages & Tools</h4>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">Java</span>
+        <span class="tag">SQL</span>
+        <span class="tag">LaTeX</span>
+        <span class="tag">Git</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h4>Frameworks & Libraries</h4>
+      <div class="tags">
+        <span class="tag">PyTorch</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">TransformerLens</span>
+        <span class="tag">SAELens</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h4>Awards</h4>
+      <div class="awards-grid">
+        <div class="award-item">
+          <strong>A Quarter Scholarship</strong>
+        </div>
+        <div class="award-item">
+          <strong>Dean's List</strong>
+          <span>Spring 2024</span>
+        </div>
+        <div class="award-item">
+          <strong>Dean's List Distinguished</strong>
+          <span>Fall 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h4>Leadership & Service</h4>
+      <ul style="list-style: none; padding: 0;">
+        <li style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 16px; position: relative;">
+          <span style="position: absolute; left: 0; color: var(--text-muted);">–</span>
+          <strong style="color: var(--text);">Pixel Club Secretary</strong>, 2024–2025 – Managed operations for a 50+ member tech community, organized workshops.
+        </li>
+        <li style="font-size: 14px; color: var(--text-secondary); padding-left: 16px; position: relative;">
+          <span style="position: absolute; left: 0; color: var(--text-muted);">–</span>
+          <strong style="color: var(--text);">Media Team Member</strong>, Sports Complex, 2023 Fall – 2025 Spring – Produced multimedia content for university athletic events.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Hongyi Qian ·
+    <a href="mailto:hq38@duke.edu">hq38@duke.edu</a> ·
+    <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
+  </footer>
+
+</body>
+</html>
