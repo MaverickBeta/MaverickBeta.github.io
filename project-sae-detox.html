@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE-Detoxification | Hongyi Qian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --text-secondary: #555;
+      --text-muted: #888;
+      --accent: #2563eb;
+      --border: #e5e5e5;
+      --bg: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --tag-bg: #eef2ff;
+      --tag-text: #4f46e5;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .lang-en, .lang-zh { display: none; }
+    body[lang="en"] .lang-en { display: block; }
+    body[lang="zh"] .lang-zh { display: block; }
+
+    .lang-toggle {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-toggle:hover { background: var(--bg-secondary); border-color: #ccc; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .back-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover { background: var(--bg-secondary); color: var(--text); text-decoration: none; }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    .project-header { margin-bottom: 32px; }
+
+    .project-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .project-meta {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .github-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--text);
+      color: var(--bg);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .github-btn:hover { opacity: 0.85; text-decoration: none; }
+
+    .github-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 32px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    ul li::before {
+      content: "\2013";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+    }
+
+    .highlight-box {
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 20px 0;
+      border-left: 3px solid var(--accent);
+    }
+
+    .highlight-box p { margin: 0; font-size: 14px; }
+    .highlight-box strong { color: var(--text); }
+
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 26px; }
+      .nav-container { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body lang="en">
+
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="back-link">&larr; <span class="lang-en">Back to Home</span><span class="lang-zh">返回主页</span></a>
+      <button class="lang-toggle" onclick="toggleLang()" title="Switch language">
+        <span class="lang-en">EN/中</span><span class="lang-zh">中/EN</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- EN -->
+    <div class="lang-en">
+      <div class="project-header">
+        <div class="project-label">Research Project &middot; Duke University</div>
+        <h1>SAE-Detoxification: Mechanistic Interpretability for LLM Safety</h1>
+        <div class="project-meta">Sep 2025 &ndash; Present &middot; With Dr. Lawrence Carin, Duke University</div>
+        <a href="https://github.com/SAE-Interpretability/SAE-Detoxification" target="_blank" class="github-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <h2>Overview</h2>
+      <p>This project applies <strong>Sparse Autoencoders (SAEs)</strong> to decode activation patterns in autoregressive language models (specifically Gemma-2-2B), achieving a mechanistic understanding of detoxification behaviors. By analyzing the <strong>Pareto Frontier</strong> between Toxicity Reduction (Safety) and Cross-Entropy Loss (Side Effects), we identify optimal features that offer the best trade-off for steering LLMs toward safer outputs without compromising general capabilities.</p>
+      <div class="highlight-box">
+        <p><strong>My Role:</strong> Research assistant in Dr. Lawrence Carin's lab. I contributed to the SAE-based feature analysis pipeline, assisted in validating the feasibility of the FST model, and participated in the full experimental cycle from data generation to evaluation.</p>
+      </div>
+      <h2>Key Contributions</h2>
+      <ul>
+        <li>Applied Sparse Autoencoders to decode activation patterns in autoregressive language models (Gemma-2-2b), achieving mechanistic understanding of detoxification behaviors through feature-level analysis.</li>
+        <li>Analyzed the Pareto frontier between toxicity reduction and cross-entropy loss to identify steering features that minimize side effects while maximizing safety improvements.</li>
+        <li>Built and ran the end-to-end steering pipeline including feature discovery, generation, toxicity scoring, and trade-off visualization using BERT-based Detoxify and WikiText-2 CE loss metrics.</li>
+        <li>Generated publication-quality Pareto plots and per-feature trade-off visualizations.</li>
+      </ul>
+      <h2>Technical Details</h2>
+      <ul>
+        <li><strong>Model:</strong> Gemma-2-2B with SAE probes on residual stream (Layer 20)</li>
+        <li><strong>Feature Discovery:</strong> Parallel corpus differential analysis</li>
+        <li><strong>Evaluation:</strong> BERT-based toxicity scoring (Detoxify) + WikiText-2 CE loss</li>
+        <li><strong>Steering:</strong> Feature-level steering with configurable strength</li>
+        <li><strong>Analysis:</strong> Pareto frontier computation and trade-off visualization</li>
+      </ul>
+      <h2>Technologies</h2>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">Sparse Autoencoders</span><span class="tag">Transformer</span>
+        <span class="tag">Gemma-2-2B</span><span class="tag">LLM Safety</span><span class="tag">Mechanistic Interpretability</span>
+        <span class="tag">BERT</span><span class="tag">Pareto Analysis</span>
+      </div>
+    </div>
+
+    <!-- ZH -->
+    <div class="lang-zh">
+      <div class="project-header">
+        <div class="project-label">研究项目 &middot; 杜克大学</div>
+        <h1>SAE 去毒化：大语言模型安全的机械可解释性</h1>
+        <div class="project-meta">2025年9月 &ndash; 至今 &middot; 导师：Lawrence Carin 教授，杜克大学</div>
+        <a href="https://github.com/SAE-Interpretability/SAE-Detoxification" target="_blank" class="github-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          在 GitHub 上查看
+        </a>
+      </div>
+      <h2>项目概述</h2>
+      <p>本项目应用<strong>稀疏自编码器（SAE）</strong>解码自回归语言模型（Gemma-2-2B）中的激活模式，实现对去毒化行为的机械可解释性理解。通过分析毒性降低（安全性）与交叉熵损失（副作用）之间的<strong>帕累托前沿</strong>，我们识别出最优特征，在不对通用能力造成损害的前提下，引导大语言模型输出更安全的内容。</p>
+      <div class="highlight-box">
+        <p><strong>我的角色：</strong>Lawrence Carin教授实验室的研究助理。我参与了基于SAE的特征分析流程，辅助验证FST（特征引导去毒化）模型的可行性，并参与了从数据生成到评估的完整实验周期。</p>
+      </div>
+      <h2>主要贡献</h2>
+      <ul>
+        <li>应用稀疏自编码器解码自回归语言模型（Gemma-2-2b）中的激活模式，通过特征级分析实现对去毒化行为的机械可解释性理解。</li>
+        <li>分析毒性降低与交叉熵损失之间的帕累托前沿，识别出副作用最小化且安全性最大化的引导特征。</li>
+        <li>构建并运行端到端引导流程，包括特征发现、文本生成、毒性评分和权衡可视化，使用基于BERT的Detoxify和WikiText-2交叉熵损失指标。</li>
+        <li>生成可用于发表的帕累托图和逐特征权衡可视化。</li>
+      </ul>
+      <h2>技术细节</h2>
+      <ul>
+        <li><strong>模型：</strong>Gemma-2-2B，残差流（第20层）SAE探针</li>
+        <li><strong>特征发现：</strong>平行语料库差异分析</li>
+        <li><strong>评估：</strong>基于BERT的毒性评分（Detoxify）+ WikiText-2交叉熵损失</li>
+        <li><strong>引导：</strong>特征级引导，可配置引导强度</li>
+        <li><strong>分析：</strong>帕累托前沿计算与权衡可视化</li>
+      </ul>
+      <h2>技术栈</h2>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">Sparse Autoencoders</span><span class="tag">Transformer</span>
+        <span class="tag">Gemma-2-2B</span><span class="tag">LLM Safety</span><span class="tag">Mechanistic Interpretability</span>
+        <span class="tag">BERT</span><span class="tag">Pareto Analysis</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="lang-en">&copy; 2026 Hongyi Qian</span>
+    <span class="lang-zh">&copy; 2026 钱弘毅</span>
+    &middot; <a href="index.html">Home / 主页</a> &middot;
+    <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
+  </footer>
+
+  <script>
+    (function() {
+      var saved = localStorage.getItem('lang');
+      document.body.setAttribute('lang', saved === 'zh' ? 'zh' : 'en');
+    })();
+    function toggleLang() {
+      var current = document.body.getAttribute('lang');
+      var next = current === 'en' ? 'zh' : 'en';
+      document.body.setAttribute('lang', next);
+      localStorage.setItem('lang', next);
+    }
+  </script>
+
+</body>
+</html>

@@ -21,15 +21,9 @@
       --tag-text: #4f46e5;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -39,13 +33,33 @@
       font-size: 15px;
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Language toggle */
+    .lang-en, .lang-zh { display: none; }
+    body[lang="en"] .lang-en { display: block; }
+    body[lang="zh"] .lang-zh { display: block; }
+    body[lang="en"] .lang-en-inline { display: inline; }
+    body[lang="zh"] .lang-zh-inline { display: inline; }
+    body[lang="en"] .lang-en-flex { display: flex; }
+    body[lang="zh"] .lang-zh-flex { display: flex; }
+
+    .lang-toggle {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .lang-toggle:hover {
+      background: var(--bg-secondary);
+      border-color: #ccc;
     }
 
     /* Navigation */
@@ -68,6 +82,8 @@
       height: 56px;
     }
 
+    .nav-left { display: flex; align-items: center; gap: 12px; }
+
     .nav-name {
       font-weight: 600;
       font-size: 16px;
@@ -75,14 +91,11 @@
       text-decoration: none;
     }
 
-    .nav-name:hover {
-      text-decoration: none;
-    }
+    .nav-name:hover { text-decoration: none; }
 
-    .nav-links {
-      display: flex;
-      gap: 4px;
-    }
+    .nav-right { display: flex; align-items: center; gap: 4px; }
+
+    .nav-links { display: flex; gap: 4px; }
 
     .nav-links a {
       padding: 6px 14px;
@@ -100,11 +113,6 @@
       text-decoration: none;
     }
 
-    .nav-links a.active {
-      background: var(--text);
-      color: var(--bg);
-    }
-
     /* Sections */
     section {
       max-width: 900px;
@@ -112,15 +120,10 @@
       padding: 60px 24px;
     }
 
-    section + section {
-      border-top: 1px solid var(--border);
-    }
+    section + section { border-top: 1px solid var(--border); }
 
     /* Hero / Main */
-    #main {
-      padding-top: 48px;
-      padding-bottom: 48px;
-    }
+    #main { padding-top: 48px; padding-bottom: 48px; }
 
     h1 {
       font-size: 40px;
@@ -166,9 +169,7 @@
       color: var(--text-secondary);
     }
 
-    .contact-line a {
-      color: var(--accent);
-    }
+    .contact-line a { color: var(--accent); }
 
     /* Section titles */
     h2 {
@@ -257,16 +258,22 @@
       border-radius: 10px;
       padding: 20px;
       transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
 
     .project-card:hover {
       border-color: #ccc;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      text-decoration: none;
     }
 
     .project-card h3 {
       font-size: 16px;
       margin-bottom: 6px;
+      color: var(--text);
     }
 
     .project-card p {
@@ -282,17 +289,11 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-    }
-
-    .project-link svg {
-      width: 14px;
-      height: 14px;
+      color: var(--accent);
     }
 
     /* Skills */
-    .skill-group {
-      margin-bottom: 20px;
-    }
+    .skill-group { margin-bottom: 20px; }
 
     .skill-group h4 {
       font-size: 12px;
@@ -336,40 +337,33 @@
 
     /* Mobile */
     @media (max-width: 640px) {
-      .nav-links {
-        gap: 0;
-      }
-
-      .nav-links a {
-        padding: 6px 10px;
-        font-size: 13px;
-      }
-
-      h1 {
-        font-size: 32px;
-      }
-
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
+      .nav-links a { padding: 6px 10px; font-size: 13px; }
+      h1 { font-size: 32px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+      .nav-container { padding: 0 16px; }
     }
   </style>
 </head>
-<body>
+<body lang="en">
 
   <!-- Navigation -->
   <nav>
     <div class="nav-container">
-      <a href="#main" class="nav-name">Hongyi Qian</a>
-      <div class="nav-links">
-        <a href="#main">Main</a>
-        <a href="#research">Research</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
+      <div class="nav-left">
+        <a href="#main" class="nav-name">Hongyi Qian</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#main" class="nav-main">Main</a>
+          <a href="#research" class="nav-research">Research</a>
+          <a href="#projects" class="nav-projects">Projects</a>
+          <a href="#skills" class="nav-skills">Skills</a>
+        </div>
+        <button class="lang-toggle" onclick="toggleLang()" title="Switch language">
+          <span class="lang-en">EN/中</span>
+          <span class="lang-zh">中/EN</span>
+        </button>
       </div>
     </div>
   </nav>
@@ -377,184 +371,376 @@
   <!-- Main / Hero -->
   <section id="main">
     <h1>Hongyi Qian</h1>
-    <p class="subtitle">Data Science · Class of 2027</p>
 
-    <div class="info-grid">
-      <div class="info-item">
-        <span class="info-label">University</span>
-        <span class="info-value">Duke Kunshan & Duke University</span>
+    <!-- EN -->
+    <div class="lang-en">
+      <p class="subtitle">Data Science &middot; Class of 2027</p>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">University</span>
+          <span class="info-value">Duke Kunshan & Duke University</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">GPA</span>
+          <span class="info-value">3.82 / 4.0 (Duke: 4.0 / 4.0)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Degree</span>
+          <span class="info-value">B.S. Data Science (DKU) &amp; B.A. Data Science (Duke)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Study Abroad</span>
+          <span class="info-value">Fall 2025 at Duke University, Durham, NC</span>
+        </div>
       </div>
-      <div class="info-item">
-        <span class="info-label">GPA</span>
-        <span class="info-value">3.82 / 4.0 (Duke: 4.0 / 4.0)</span>
-      </div>
-      <div class="info-item">
-        <span class="info-label">Degree</span>
-        <span class="info-value">B.S. Data Science (DKU) & B.A. Data Science (Duke)</span>
-      </div>
-      <div class="info-item">
-        <span class="info-label">Study Abroad</span>
-        <span class="info-value">Fall 2025 at Duke University, Durham, NC</span>
-      </div>
+      <p class="contact-line">
+        <a href="mailto:hq38@duke.edu">hq38@duke.edu</a> &middot; +86 18862250806 &middot;
+        <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
+      </p>
     </div>
 
-    <p class="contact-line">
-      <a href="mailto:hq38@duke.edu">hq38@duke.edu</a> · +86 18862250806 ·
-      <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
-    </p>
+    <!-- ZH -->
+    <div class="lang-zh">
+      <p class="subtitle">数据科学 &middot; 2027届</p>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">大学</span>
+          <span class="info-value">昆山杜克大学 &amp; 杜克大学（双学位）</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">绩点</span>
+          <span class="info-value">3.82 / 4.0（杜克: 4.0 / 4.0）</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">学位</span>
+          <span class="info-value">数据科学学士（DKU）&amp; 数据科学学士（Duke）</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">海外学习</span>
+          <span class="info-value">2025年秋季 &middot; 杜克大学 &middot; 北卡罗来纳州达勒姆</span>
+        </div>
+      </div>
+      <p class="contact-line">
+        <a href="mailto:hq38@duke.edu">hq38@duke.edu</a> &middot; +86 18862250806 &middot;
+        <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
+      </p>
+    </div>
   </section>
 
   <!-- Research Experience -->
   <section id="research">
-    <h2>Research Experience</h2>
-
-    <div class="card">
-      <div class="card-header">
-        <h3>Data Science at DKU</h3>
-        <span style="font-size: 13px; color: var(--text-muted);">Dec 2024 – Present</span>
-      </div>
-      <p class="card-meta">
-        Student Research Assistant to Dr. Kaizhu Huang, Professor of ECE, DKU · Director of Data Science Research Center
+    <!-- EN -->
+    <div class="lang-en">
+      <h2>Research Experience</h2>
+      <p style="margin-bottom: 24px; line-height: 1.7; color: var(--text-secondary);">
+        My research centers on <strong>interpretable mechanisms</strong> in deep learning&mdash;uncovering how neural networks encode, transform, and utilize representations to make decisions. I am particularly interested in leveraging sparse autoencoders and mechanistic interpretability tools to disentangle latent features and understand the inner workings of both classical architectures and large language models.
       </p>
-      <ul>
-        <li>Investigating CNN representations by applying Sparse Autoencoders to expand channel dimensions, extracting disentangled class-specific features.</li>
-        <li>Evaluating representation evolution to discover underlying classification mechanisms.</li>
-        <li>Exploring Joint Energy Based Models for classification and generation mechanism evaluation.</li>
-      </ul>
-      <div class="tags">
-        <span class="tag">SAE</span>
-        <span class="tag">CNN</span>
-        <span class="tag">Channel Expansion</span>
-        <span class="tag">JEM</span>
+      <div class="card">
+        <div class="card-header">
+          <h3>Machine Learning at DKU</h3>
+          <span style="font-size: 13px; color: var(--text-muted);">Dec 2024 &ndash; Present</span>
+        </div>
+        <p class="card-meta">
+          Student Research Assistant to Dr. Kaizhu Huang, Professor of ECE, DKU &middot; Director of Data Science Research Center
+        </p>
+        <ul>
+          <li>Investigating CNN representations by applying Sparse Autoencoders to expand channel dimensions, extracting disentangled class-specific features.</li>
+          <li>Evaluating representation evolution to discover underlying classification mechanisms.</li>
+          <li>Exploring Joint Energy Based Models for classification and generation mechanism evaluation.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">SAE</span>
+          <span class="tag">CNN</span>
+          <span class="tag">Channel Expansion</span>
+          <span class="tag">JEM</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h3>Machine Learning at Duke</h3>
+          <span style="font-size: 13px; color: var(--text-muted);">Sep 2025 &ndash; Present</span>
+        </div>
+        <p class="card-meta">
+          Student Research Assistant to Dr. Lawrence Carin, Professor of ECE &amp; CS, Duke University
+        </p>
+        <ul>
+          <li>Applying SAEs to interpret activation patterns in autoregressive models (Gemma-2-2b) and modified transformers, focusing on mechanistic understanding of detoxification.</li>
+          <li>Investigating transformer in-context learning capabilities through literature review and empirical analysis of out-of-distribution generalization.</li>
+          <li>Investigating representation of virtual embeddings in transformers for in-context learning theory verification and architecture improvement.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">SAE</span>
+          <span class="tag">Transformer</span>
+          <span class="tag">LLM Safety</span>
+          <span class="tag">In-Context Learning</span>
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <h3>Machine Learning at Duke</h3>
-        <span style="font-size: 13px; color: var(--text-muted);">Sep 2025 – Present</span>
-      </div>
-      <p class="card-meta">
-        Student Research Assistant to Dr. Lawrence Carin, Professor of ECE & CS, Duke University
+    <!-- ZH -->
+    <div class="lang-zh">
+      <h2>研究经历</h2>
+      <p style="margin-bottom: 24px; line-height: 1.7; color: var(--text-secondary);">
+        我的研究聚焦于深度学习中的<strong>可解释机制</strong>&mdash;揭示神经网络如何编码、转换和利用表征来做出决策。我特别关注利用稀疏自编码器（SAE）和机械可解释性工具来解耦潜在特征，理解经典架构和大语言模型的内部工作机制。
       </p>
-      <ul>
-        <li>Applying SAEs to interpret activation patterns in autoregressive models (Gemma-2-2b) and modified transformers, focusing on mechanistic understanding of detoxification.</li>
-        <li>Investigating transformer in-context learning capabilities through literature review and empirical analysis of out-of-distribution generalization.</li>
-        <li>Investigating representation of virtual embeddings in transformers for in-context learning theory verification and architecture improvement.</li>
-      </ul>
-      <div class="tags">
-        <span class="tag">SAE</span>
-        <span class="tag">Transformer</span>
-        <span class="tag">LLM Safety</span>
-        <span class="tag">In-Context Learning</span>
+      <div class="card">
+        <div class="card-header">
+          <h3>DKU 机器学习研究</h3>
+          <span style="font-size: 13px; color: var(--text-muted);">2024年12月 &ndash; 至今</span>
+        </div>
+        <p class="card-meta">
+          学生研究助理 &middot; 导师：Kaizhu Huang 教授（电子与计算机工程）&middot; DKU 数据科学研究中心主任
+        </p>
+        <ul>
+          <li>应用稀疏自编码器（SAE）扩展卷积神经网络的通道维度，提取解耦的类别特定特征，研究CNN表征。</li>
+          <li>评估表征演变过程，发现潜在的分类机制。</li>
+          <li>探索联合能量模型（JEM），用于分类和生成机制评估。</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">SAE</span>
+          <span class="tag">CNN</span>
+          <span class="tag">Channel Expansion</span>
+          <span class="tag">JEM</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h3>Duke 机器学习研究</h3>
+          <span style="font-size: 13px; color: var(--text-muted);">2025年9月 &ndash; 至今</span>
+        </div>
+        <p class="card-meta">
+          学生研究助理 &middot; 导师：Lawrence Carin 教授（电子与计算机工程 &amp; 计算机科学）&middot; 杜克大学
+        </p>
+        <ul>
+          <li>应用SAE解读自回归模型（Gemma-2-2b）和修改版Transformer中的激活模式，聚焦于去毒化行为的机械理解。</li>
+          <li>通过文献综述和分布外泛化的实证分析，研究Transformer的上下文学习能力。</li>
+          <li>研究Transformer中虚拟嵌入（virtual embedding）的表征，用于上下文学习理论验证和架构改进。</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">SAE</span>
+          <span class="tag">Transformer</span>
+          <span class="tag">LLM Safety</span>
+          <span class="tag">In-Context Learning</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Selected Projects -->
   <section id="projects">
-    <h2>Selected Projects</h2>
-    <div class="project-grid">
-
-      <div class="project-card">
-        <h3>SAEBench Experiments</h3>
-        <p>Notebooks, configs, and training scripts for SAEBench & SAELens experiments. Foundation tooling for SAE research workflow.</p>
-        <a href="https://github.com/MaverickBeta/sae-bench-project" target="_blank" class="project-link">
-          View on GitHub
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    <!-- EN -->
+    <div class="lang-en">
+      <h2>Selected Projects</h2>
+      <div class="project-grid">
+        <a href="project-sae-detox.html" class="project-card">
+          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">Research &middot; LLM Safety</span>
+          <h3 style="margin-top: 8px;">SAE-Detoxification</h3>
+          <p>Sparse Autoencoders for mechanistic interpretability of detoxification behaviors in autoregressive language models.</p>
+          <span class="project-link">View details &rarr;</span>
+        </a>
+        <a href="project-stat401.html" class="project-card">
+          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">Course Project &middot; STAT 401</span>
+          <h3 style="margin-top: 8px;">Social Discourse Analytics Dashboard</h3>
+          <p>End-to-end NLP pipeline and interactive dashboard for cross-platform social media sentiment analysis.</p>
+          <span class="project-link">View details &rarr;</span>
+        </a>
+        <a href="project-mcm.html" class="project-card">
+          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">Competition &middot; MCM/ICM 2026</span>
+          <h3 style="margin-top: 8px;">NBA Franchise Valuation &amp; Strategy</h3>
+          <p>Gaussian Process Regression and Monte Carlo simulation for NBA team performance prediction and optimization.</p>
+          <span class="project-link">View details &rarr;</span>
+        </a>
+        <a href="project-mini-amazon.html" class="project-card">
+          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">Course Project &middot; CS 316</span>
+          <h3 style="margin-top: 8px;">Mini-Amazon E-Commerce Platform</h3>
+          <p>Full-stack web application with PostgreSQL backend, seller inventory management, and order fulfillment system.</p>
+          <span class="project-link">View details &rarr;</span>
         </a>
       </div>
+    </div>
 
-      <div class="project-card">
-        <h3>SileMa Sentiment Analysis</h3>
-        <p>Interactive sentiment analysis dashboard for SileMa app reviews from Weibo and Xiaohongshu with cross-platform engagement visualization.</p>
-        <a href="https://github.com/MaverickBeta/Stat401_Final_Group_Project" target="_blank" class="project-link">
-          View on GitHub
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    <!-- ZH -->
+    <div class="lang-zh">
+      <h2>精选项目</h2>
+      <div class="project-grid">
+        <a href="project-sae-detox.html" class="project-card">
+          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">研究 &middot; 大语言模型安全</span>
+          <h3 style="margin-top: 8px;">SAE 去毒化项目</h3>
+          <p>利用稀疏自编码器（SAE）对自回归语言模型中的去毒化行为进行机械可解释性分析。</p>
+          <span class="project-link">查看详情 &rarr;</span>
+        </a>
+        <a href="project-stat401.html" class="project-card">
+          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">课程项目 &middot; STAT 401</span>
+          <h3 style="margin-top: 8px;">社交媒体舆情分析仪表盘</h3>
+          <p>端到端NLP处理流程与交互式仪表盘，用于跨平台社交媒体情感分析。</p>
+          <span class="project-link">查看详情 &rarr;</span>
+        </a>
+        <a href="project-mcm.html" class="project-card">
+          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">竞赛 &middot; MCM/ICM 2026</span>
+          <h3 style="margin-top: 8px;">NBA球队估值与策略优化</h3>
+          <p>高斯过程回归与蒙特卡洛模拟，用于NBA球队表现预测与策略优化。</p>
+          <span class="project-link">查看详情 &rarr;</span>
+        </a>
+        <a href="project-mini-amazon.html" class="project-card">
+          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">课程项目 &middot; CS 316</span>
+          <h3 style="margin-top: 8px;">Mini-Amazon 电商平台</h3>
+          <p>全栈Web应用，PostgreSQL后端，卖家库存管理与订单履约系统。</p>
+          <span class="project-link">查看详情 &rarr;</span>
         </a>
       </div>
-
-      <div class="project-card">
-        <h3>NBA Analytics & Prediction</h3>
-        <p>Mathematical Contest in Modeling project. NBA player performance prediction using Gaussian Process Regression and Random Forest.</p>
-        <a href="https://github.com/MaverickBeta/DKU_2026" target="_blank" class="project-link">
-          View on GitHub
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-      </div>
-
     </div>
   </section>
 
   <!-- Skills & Awards -->
   <section id="skills">
-    <h2>Skills & Awards</h2>
-
-    <div class="skill-group">
-      <h4>Languages</h4>
-      <p style="font-size: 14px; color: var(--text-secondary);">English (fluent) · Mandarin (native) · GRE 321</p>
-    </div>
-
-    <div class="skill-group">
-      <h4>Programming Languages & Tools</h4>
-      <div class="tags">
-        <span class="tag">Python</span>
-        <span class="tag">Java</span>
-        <span class="tag">SQL</span>
-        <span class="tag">LaTeX</span>
-        <span class="tag">Git</span>
+    <!-- EN -->
+    <div class="lang-en">
+      <h2>Skills & Awards</h2>
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <p style="font-size: 14px; color: var(--text-secondary);">English (fluent) &middot; Mandarin (native) &middot; GRE 321</p>
+      </div>
+      <div class="skill-group">
+        <h4>Programming Languages &amp; Tools</h4>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Java</span>
+          <span class="tag">SQL</span>
+          <span class="tag">LaTeX</span>
+          <span class="tag">Git</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Frameworks &amp; Libraries</h4>
+        <div class="tags">
+          <span class="tag">PyTorch</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">TransformerLens</span>
+          <span class="tag">SAELens</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Awards</h4>
+        <div class="awards-grid">
+          <div class="award-item"><strong>A Quarter Scholarship</strong></div>
+          <div class="award-item"><strong>Dean's List</strong><span>Spring 2024</span></div>
+          <div class="award-item"><strong>Dean's List Distinguished</strong><span>Fall 2025</span></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Leadership &amp; Service</h4>
+        <ul style="list-style: none; padding: 0;">
+          <li style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 16px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--text-muted);">&ndash;</span>
+            <strong style="color: var(--text);">Pixel Club Secretary</strong>, 2024&ndash;2025 &ndash; Managed operations for a 50+ member tech community, organized workshops.
+          </li>
+          <li style="font-size: 14px; color: var(--text-secondary); padding-left: 16px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--text-muted);">&ndash;</span>
+            <strong style="color: var(--text);">Media Team Member</strong>, Sports Complex, 2023 Fall &ndash; 2025 Spring &ndash; Produced multimedia content for university athletic events.
+          </li>
+        </ul>
       </div>
     </div>
 
-    <div class="skill-group">
-      <h4>Frameworks & Libraries</h4>
-      <div class="tags">
-        <span class="tag">PyTorch</span>
-        <span class="tag">NumPy</span>
-        <span class="tag">Pandas</span>
-        <span class="tag">TransformerLens</span>
-        <span class="tag">SAELens</span>
+    <!-- ZH -->
+    <div class="lang-zh">
+      <h2>技能与奖项</h2>
+      <div class="skill-group">
+        <h4>语言</h4>
+        <p style="font-size: 14px; color: var(--text-secondary);">英语（流利）&middot; 普通话（母语）&middot; GRE 321</p>
       </div>
-    </div>
-
-    <div class="skill-group">
-      <h4>Awards</h4>
-      <div class="awards-grid">
-        <div class="award-item">
-          <strong>A Quarter Scholarship</strong>
-        </div>
-        <div class="award-item">
-          <strong>Dean's List</strong>
-          <span>Spring 2024</span>
-        </div>
-        <div class="award-item">
-          <strong>Dean's List Distinguished</strong>
-          <span>Fall 2025</span>
+      <div class="skill-group">
+        <h4>编程语言与工具</h4>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Java</span>
+          <span class="tag">SQL</span>
+          <span class="tag">LaTeX</span>
+          <span class="tag">Git</span>
         </div>
       </div>
-    </div>
-
-    <div class="skill-group">
-      <h4>Leadership & Service</h4>
-      <ul style="list-style: none; padding: 0;">
-        <li style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 16px; position: relative;">
-          <span style="position: absolute; left: 0; color: var(--text-muted);">–</span>
-          <strong style="color: var(--text);">Pixel Club Secretary</strong>, 2024–2025 – Managed operations for a 50+ member tech community, organized workshops.
-        </li>
-        <li style="font-size: 14px; color: var(--text-secondary); padding-left: 16px; position: relative;">
-          <span style="position: absolute; left: 0; color: var(--text-muted);">–</span>
-          <strong style="color: var(--text);">Media Team Member</strong>, Sports Complex, 2023 Fall – 2025 Spring – Produced multimedia content for university athletic events.
-        </li>
-      </ul>
+      <div class="skill-group">
+        <h4>框架与库</h4>
+        <div class="tags">
+          <span class="tag">PyTorch</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">TransformerLens</span>
+          <span class="tag">SAELens</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>奖项</h4>
+        <div class="awards-grid">
+          <div class="award-item"><strong>四分之一奖学金</strong></div>
+          <div class="award-item"><strong>院长名单</strong><span>2024年春季</span></div>
+          <div class="award-item"><strong>杰出院长名单</strong><span>2025年秋季</span></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>领导力与服务</h4>
+        <ul style="list-style: none; padding: 0;">
+          <li style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 16px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--text-muted);">&ndash;</span>
+            <strong style="color: var(--text);">Pixel Club 秘书</strong>，2024&ndash;2025 &ndash; 管理50+成员的技术社团，组织工作坊。
+          </li>
+          <li style="font-size: 14px; color: var(--text-secondary); padding-left: 16px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--text-muted);">&ndash;</span>
+            <strong style="color: var(--text);">媒体团队成员</strong>，体育中心，2023秋 &ndash; 2025春 &ndash; 为大学体育赛事制作多媒体内容。
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    &copy; 2025 Hongyi Qian ·
-    <a href="mailto:hq38@duke.edu">hq38@duke.edu</a> ·
+    <span class="lang-en">&copy; 2026 Hongyi Qian</span>
+    <span class="lang-zh">&copy; 2026 钱弘毅</span>
+    &middot; <a href="mailto:hq38@duke.edu">hq38@duke.edu</a> &middot;
     <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
   </footer>
+
+  <script>
+    // Language toggle with localStorage persistence
+    (function() {
+      var saved = localStorage.getItem('lang');
+      if (saved === 'zh') {
+        document.body.setAttribute('lang', 'zh');
+        updateNavText('zh');
+      } else {
+        document.body.setAttribute('lang', 'en');
+        updateNavText('en');
+      }
+    })();
+
+    function toggleLang() {
+      var current = document.body.getAttribute('lang');
+      var next = current === 'en' ? 'zh' : 'en';
+      document.body.setAttribute('lang', next);
+      localStorage.setItem('lang', next);
+      updateNavText(next);
+    }
+
+    function updateNavText(lang) {
+      var navMain = document.querySelector('.nav-main');
+      var navResearch = document.querySelector('.nav-research');
+      var navProjects = document.querySelector('.nav-projects');
+      var navSkills = document.querySelector('.nav-skills');
+      if (lang === 'zh') {
+        if (navMain) navMain.textContent = '主页';
+        if (navResearch) navResearch.textContent = '研究';
+        if (navProjects) navProjects.textContent = '项目';
+        if (navSkills) navSkills.textContent = '技能';
+      } else {
+        if (navMain) navMain.textContent = 'Main';
+        if (navResearch) navResearch.textContent = 'Research';
+        if (navProjects) navProjects.textContent = 'Projects';
+        if (navSkills) navSkills.textContent = 'Skills';
+      }
+    }
+  </script>
 
 </body>
 </html>

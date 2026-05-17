@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Discourse Analytics | Hongyi Qian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text: #1a1a1a; --text-secondary: #555; --text-muted: #888;
+      --accent: #2563eb; --border: #e5e5e5; --bg: #ffffff; --bg-secondary: #f8f9fa;
+      --tag-bg: #eef2ff; --tag-text: #4f46e5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
+    a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
+    .lang-en, .lang-zh { display: none; }
+    body[lang="en"] .lang-en { display: block; } body[lang="zh"] .lang-zh { display: block; }
+    .lang-toggle { font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; }
+    .lang-toggle:hover { background: var(--bg-secondary); }
+    nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); z-index: 100; }
+    .nav-container { max-width: 900px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .back-link { font-size: 14px; font-weight: 500; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; }
+    .back-link:hover { background: var(--bg-secondary); color: var(--text); text-decoration: none; }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    .project-header { margin-bottom: 32px; }
+    .project-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; color: var(--accent); margin-bottom: 8px; }
+    h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .project-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+    .github-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--text); color: var(--bg); padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: opacity 0.2s; }
+    .github-btn:hover { opacity: 0.85; text-decoration: none; }
+    .github-btn svg { width: 16px; height: 16px; fill: currentColor; }
+    h2 { font-size: 20px; font-weight: 600; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+    ul { list-style: none; padding: 0; margin-bottom: 20px; }
+    ul li { position: relative; padding-left: 18px; margin-bottom: 10px; font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+    ul li::before { content: "\2013"; position: absolute; left: 0; color: var(--text-muted); }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tag { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 100px; background: var(--tag-bg); color: var(--tag-text); }
+    .highlight-box { background: var(--bg-secondary); border-radius: 10px; padding: 20px 24px; margin: 20px 0; border-left: 3px solid var(--accent); }
+    .highlight-box p { margin: 0; font-size: 14px; } .highlight-box strong { color: var(--text); }
+    .deliverables-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+    .deliverable-item { background: var(--bg-secondary); border-radius: 8px; padding: 16px; }
+    .deliverable-item strong { display: block; font-size: 13px; color: var(--text); margin-bottom: 4px; }
+    .deliverable-item span { font-size: 12px; color: var(--text-muted); }
+    footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); margin-top: 40px; }
+    @media (max-width: 640px) { h1 { font-size: 26px; } .nav-container { padding: 0 16px; } }
+  </style>
+</head>
+<body lang="en">
+
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="back-link">&larr; <span class="lang-en">Back to Home</span><span class="lang-zh">返回主页</span></a>
+      <button class="lang-toggle" onclick="toggleLang()" title="Switch language"><span class="lang-en">EN/中</span><span class="lang-zh">中/EN</span></button>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- EN -->
+    <div class="lang-en">
+      <div class="project-header">
+        <div class="project-label">Course Project &middot; STATS 401 &middot; Duke Kunshan University</div>
+        <h1>Interactive Visual Analytics of Social Discourse Propagation</h1>
+        <div class="project-meta">SileMa App Sentiment Analysis Dashboard</div>
+        <a href="https://github.com/MaverickBeta/Stat401_Final_Group_Project" target="_blank" class="github-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <h2>Overview</h2>
+      <p>This project presents an end-to-end data pipeline and interactive web-based dashboard for analyzing social discourse propagation across Chinese social media platforms (Weibo and Xiaohongshu/Rednote). We focused on the SileMa app, engineering a complete workflow from web scraping unstructured social media data to building dynamic visualizations that reveal cross-platform engagement patterns, sentiment trends, and the geographical structure of digital public arenas.</p>
+      <h2>Key Contributions</h2>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">End-to-End Data Pipeline</h3>
+      <ul>
+        <li>Engineered a web-scraping pipeline using Python and Playwright to harvest unstructured social media posts, comments, and search cards from Rednote (Xiaohongshu).</li>
+        <li>Handled large-scale JSONL/CSV data cleaning and transformation to prepare raw social media data for downstream analysis.</li>
+        <li>Processed multiple data formats including Weibo posts, Weibo comments, and Xiaohongshu search cards with Chinese stopword filtering.</li>
+      </ul>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Natural Language Processing</h3>
+      <ul>
+        <li>Implemented NLP workflows leveraging <strong>SnowNLP</strong> for Chinese text segmentation, keyword extraction, and sentiment analysis.</li>
+        <li>Quantified public emotions and discourse trends over time across both Weibo and Xiaohongshu platforms.</li>
+        <li>Applied TF-IDF analysis to extract platform-specific keywords and identify discourse patterns unique to each social media ecosystem.</li>
+      </ul>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Interactive Dashboard Development</h3>
+      <ul>
+        <li>Designed and built a dynamic web-based dashboard using HTML/CSS/JavaScript with interactive time-filtering capabilities.</li>
+        <li>Developed temporal timeline visualizations for cross-platform engagement tracking.</li>
+        <li>Created user-topic bipartite network graphs to map relationships between discussion topics and user engagement.</li>
+        <li>Built geographic influence network visualizations showing the spatial distribution of digital discourse.</li>
+        <li>Implemented sentiment distribution plots and interactive word clouds for intuitive sentiment exploration.</li>
+      </ul>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Analytical Impact</h3>
+      <div class="highlight-box">
+        <p>Facilitated dynamic exploration of cross-platform (Weibo vs. Rednote) opinion formation, revealing <strong>platform-dependent discourse styles</strong> and the <strong>geographical structure of digital public arenas</strong>. The dashboard enables stakeholders to identify trending topics, sentiment shifts, and regional variations in public opinion propagation patterns.</p>
+      </div>
+      <h2>Dashboard Components</h2>
+      <div class="deliverables-grid">
+        <div class="deliverable-item"><strong>Main Dashboard</strong><span>Interactive poster with time filter</span></div>
+        <div class="deliverable-item"><strong>Engagement Timeline</strong><span>Cross-platform time series</span></div>
+        <div class="deliverable-item"><strong>Topic Network</strong><span>User-topic bipartite graph</span></div>
+        <div class="deliverable-item"><strong>Geographic Map</strong><span>Influence network by region</span></div>
+        <div class="deliverable-item"><strong>Word Cloud</strong><span>Sentiment analysis visualization</span></div>
+        <div class="deliverable-item"><strong>TF-IDF Keywords</strong><span>Platform keyword extraction</span></div>
+      </div>
+      <h2>Technologies</h2>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">Playwright</span><span class="tag">SnowNLP</span><span class="tag">NLP</span>
+        <span class="tag">Sentiment Analysis</span><span class="tag">HTML/CSS</span><span class="tag">JavaScript</span>
+        <span class="tag">Data Visualization</span><span class="tag">Web Scraping</span>
+      </div>
+    </div>
+
+    <!-- ZH -->
+    <div class="lang-zh">
+      <div class="project-header">
+        <div class="project-label">课程项目 &middot; STAT 401 &middot; 昆山杜克大学</div>
+        <h1>社交媒体 discourse 传播的交互式可视化分析</h1>
+        <div class="project-meta">SileMa App 情感分析仪表盘</div>
+        <a href="https://github.com/MaverickBeta/Stat401_Final_Group_Project" target="_blank" class="github-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          在 GitHub 上查看
+        </a>
+      </div>
+      <h2>项目概述</h2>
+      <p>本项目搭建了一套端到端的数据处理流程和交互式Web仪表盘，用于分析中国社交媒体平台（微博和小红书）上的社交 discourse 传播。我们以SileMa App为研究对象，设计了从网络爬取非结构化社交媒体数据到构建动态可视化的完整工作流，揭示跨平台互动模式、情感趋势和数字公共领域的地理结构。</p>
+      <h2>主要贡献</h2>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">端到端数据流程</h3>
+      <ul>
+        <li>使用Python和Playwright构建网络爬虫流程，从小红书（Xiaohongshu）采集帖子、评论和搜索卡片等非结构化社交媒体数据。</li>
+        <li>处理大规模JSONL/CSV数据清洗和转换，为下游分析准备原始社交媒体数据。</li>
+        <li>处理多种数据格式，包括微博帖子、微博评论和小红书搜索卡片，并应用中文停用词过滤。</li>
+      </ul>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">自然语言处理</h3>
+      <ul>
+        <li>使用<strong>SnowNLP</strong>实现NLP工作流，完成中文文本分词、关键词提取和情感分析。</li>
+        <li>量化微博和小红书两个平台上的公众情绪和 discourse 趋势随时间的变化。</li>
+        <li>应用TF-IDF分析提取平台特有关键词，识别各社交媒体生态系统的 discourse 模式。</li>
+      </ul>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">交互式仪表盘开发</h3>
+      <ul>
+        <li>使用HTML/CSS/JavaScript设计并构建了动态Web仪表盘，支持交互式时间过滤。</li>
+        <li>开发了跨平台互动追踪的时间线可视化。</li>
+        <li>创建了用户-话题二分网络图，映射讨论话题与用户参与之间的关系。</li>
+        <li>构建了地理影响网络可视化，展示数字 discourse 的空间分布。</li>
+        <li>实现了情感分布图和交互式词云，用于直观的情感探索。</li>
+      </ul>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">分析影响</h3>
+      <div class="highlight-box">
+        <p>支持对跨平台（微博 vs. 小红书）舆论形成的动态探索，揭示了<strong>平台依赖的 discourse 风格</strong>和<strong>数字公共领域的地理结构</strong>。该仪表盘帮助利益相关者识别热门话题、情感变化和舆论传播的区域差异。</p>
+      </div>
+      <h2>仪表盘组件</h2>
+      <div class="deliverables-grid">
+        <div class="deliverable-item"><strong>主仪表盘</strong><span>带时间过滤的交互式海报</span></div>
+        <div class="deliverable-item"><strong>互动时间线</strong><span>跨平台时间序列</span></div>
+        <div class="deliverable-item"><strong>话题网络</strong><span>用户-话题二分图</span></div>
+        <div class="deliverable-item"><strong>地理地图</strong><span>区域影响网络</span></div>
+        <div class="deliverable-item"><strong>词云</strong><span>情感分析可视化</span></div>
+        <div class="deliverable-item"><strong>TF-IDF 关键词</strong><span>平台关键词提取</span></div>
+      </div>
+      <h2>技术栈</h2>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">Playwright</span><span class="tag">SnowNLP</span><span class="tag">NLP</span>
+        <span class="tag">Sentiment Analysis</span><span class="tag">HTML/CSS</span><span class="tag">JavaScript</span>
+        <span class="tag">Data Visualization</span><span class="tag">Web Scraping</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="lang-en">&copy; 2026 Hongyi Qian</span><span class="lang-zh">&copy; 2026 钱弘毅</span>
+    &middot; <a href="index.html">Home / 主页</a> &middot; <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
+  </footer>
+
+  <script>
+    (function() { var saved = localStorage.getItem('lang'); document.body.setAttribute('lang', saved === 'zh' ? 'zh' : 'en'); })();
+    function toggleLang() { var current = document.body.getAttribute('lang'); var next = current === 'en' ? 'zh' : 'en'; document.body.setAttribute('lang', next); localStorage.setItem('lang', next); }
+  </script>
+
+</body>
+</html>

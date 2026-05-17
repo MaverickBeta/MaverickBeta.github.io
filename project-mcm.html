@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NBA Franchise Valuation | Hongyi Qian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --text: #1a1a1a; --text-secondary: #555; --text-muted: #888; --accent: #2563eb; --border: #e5e5e5; --bg: #ffffff; --bg-secondary: #f8f9fa; --tag-bg: #eef2ff; --tag-text: #4f46e5; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
+    a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
+    .lang-en, .lang-zh { display: none; } body[lang="en"] .lang-en { display: block; } body[lang="zh"] .lang-zh { display: block; }
+    .lang-toggle { font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; }
+    .lang-toggle:hover { background: var(--bg-secondary); }
+    nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); z-index: 100; }
+    .nav-container { max-width: 900px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .back-link { font-size: 14px; font-weight: 500; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; }
+    .back-link:hover { background: var(--bg-secondary); color: var(--text); text-decoration: none; }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    .project-header { margin-bottom: 32px; }
+    .project-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; color: var(--accent); margin-bottom: 8px; }
+    h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .project-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+    .badge { display: inline-block; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 6px; background: #ecfdf5; color: #059669; margin-bottom: 16px; }
+    .github-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--text); color: var(--bg); padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: opacity 0.2s; }
+    .github-btn:hover { opacity: 0.85; text-decoration: none; }
+    .github-btn svg { width: 16px; height: 16px; fill: currentColor; }
+    h2 { font-size: 20px; font-weight: 600; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+    ul { list-style: none; padding: 0; margin-bottom: 20px; }
+    ul li { position: relative; padding-left: 18px; margin-bottom: 10px; font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+    ul li::before { content: "\2013"; position: absolute; left: 0; color: var(--text-muted); }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tag { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 100px; background: var(--tag-bg); color: var(--tag-text); }
+    .highlight-box { background: var(--bg-secondary); border-radius: 10px; padding: 20px 24px; margin: 20px 0; border-left: 3px solid var(--accent); }
+    .highlight-box p { margin: 0; font-size: 14px; } .highlight-box strong { color: var(--text); }
+    .team-roles { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin: 12px 0; }
+    .team-role { background: var(--bg-secondary); border-radius: 8px; padding: 12px 16px; }
+    .team-role strong { font-size: 13px; color: var(--text); } .team-role span { font-size: 12px; color: var(--text-muted); }
+    footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); margin-top: 40px; }
+    @media (max-width: 640px) { h1 { font-size: 26px; } .nav-container { padding: 0 16px; } }
+  </style>
+</head>
+<body lang="en">
+
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="back-link">&larr; <span class="lang-en">Back to Home</span><span class="lang-zh">返回主页</span></a>
+      <button class="lang-toggle" onclick="toggleLang()" title="Switch language"><span class="lang-en">EN/中</span><span class="lang-zh">中/EN</span></button>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- EN -->
+    <div class="lang-en">
+      <div class="project-header">
+        <div class="project-label">Competition &middot; MCM/ICM 2026 &middot; Problem D</div>
+        <h1>NBA Franchise Valuation &amp; Strategy Optimization</h1>
+        <div class="project-meta">Mathematical Contest in Modeling (MCM/ICM) &middot; 4-Day Competition</div>
+        <span class="badge">Successful Participant</span><br>
+        <a href="https://github.com/MaverickBeta/DKU_2026" target="_blank" class="github-btn" style="margin-top:12px;">
+          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <h2>Overview</h2>
+      <p>This project addresses the 2026 MCM/ICM Problem D: developing a quantitative framework for NBA franchise valuation and strategic decision-making. We engineered a multi-level feature system from raw NBA historical data, built predictive models for team performance and revenue, and designed a Monte Carlo simulation engine to optimize roster management, load management, and ticketing strategies under luxury tax constraints.</p>
+      <div class="highlight-box">
+        <p><strong>My Role:</strong> Modeling lead. I was responsible for feature engineering, model selection, validation strategy design, and the Monte Carlo simulation framework for strategy optimization.</p>
+      </div>
+      <h2>Team Composition</h2>
+      <div class="team-roles">
+        <div class="team-role"><strong>Hongyi Qian</strong><br><span>Modeling Lead</span></div>
+        <div class="team-role"><strong>Teammate 2</strong><br><span>Programming &amp; Writing</span></div>
+        <div class="team-role"><strong>Teammate 3</strong><br><span>Research &amp; Writing</span></div>
+      </div>
+      <h2>Key Contributions</h2>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Feature Engineering &amp; Data Pipeline</h3>
+      <ul>
+        <li>Engineered a multi-level feature system from raw NBA data sourced from Basketball-Reference (2021&ndash;2025), quantifying player injury risks and team structural variance.</li>
+        <li>Constructed features to evaluate both competitive and commercial potential of NBA franchises, including player performance metrics, roster stability indices, and financial indicators.</li>
+        <li>Implemented strict temporal validation protocols to prevent data leakage in time-series sports prediction.</li>
+      </ul>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Predictive Modeling</h3>
+      <ul>
+        <li>Developed a <strong>cascading Gaussian Process Regression (GPR) pipeline</strong> to predict win rates, playoff progression depth, and franchise revenue from engineered features.</li>
+        <li>Utilized a <strong>custom multi-horizon validation strategy</strong> that strictly eliminates temporal data leakage by training on past seasons and testing on future seasons.</li>
+        <li>Compared GPR against Random Forest baseline models; GPR showed superior uncertainty quantification for sparse injury-risk scenarios.</li>
+        <li>Conducted hyperparameter optimization via grid search with walk-forward cross-validation.</li>
+      </ul>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Monte Carlo Strategy Optimization</h3>
+      <ul>
+        <li>Designed a <strong>Monte Carlo simulation engine</strong> integrating NBA luxury tax constraints and price elasticity models.</li>
+        <li>Optimized a complex decision space across roster trades, player load management, and dynamic ticketing pricing to maximize long-term franchise ROI.</li>
+        <li>Simulated multiple season trajectories under varying roster configurations to identify Pareto-optimal trade-offs between short-term competitiveness and long-term financial sustainability.</li>
+      </ul>
+      <h2>Model Architecture</h2>
+      <div class="highlight-box">
+        <p><strong>Cascading GPR Pipeline:</strong> Stage 1 predicts regular-season win rate from roster features; Stage 2 takes win rate + team features to predict playoff depth; Stage 3 predicts franchise revenue from competitive outcomes. Each stage feeds into the Monte Carlo simulation for strategy evaluation.</p>
+      </div>
+      <h2>Technologies</h2>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">Gaussian Process Regression</span><span class="tag">Random Forest</span>
+        <span class="tag">Monte Carlo Simulation</span><span class="tag">Time-Series Validation</span><span class="tag">NumPy</span>
+        <span class="tag">Pandas</span><span class="tag">scikit-learn</span><span class="tag">Mathematical Modeling</span><span class="tag">Sports Analytics</span>
+      </div>
+    </div>
+
+    <!-- ZH -->
+    <div class="lang-zh">
+      <div class="project-header">
+        <div class="project-label">竞赛 &middot; MCM/ICM 2026 &middot; D题</div>
+        <h1>NBA 球队估值与策略优化</h1>
+        <div class="project-meta">数学建模竞赛（MCM/ICM）&middot; 四天竞赛</div>
+        <span class="badge">成功参赛奖</span><br>
+        <a href="https://github.com/MaverickBeta/DKU_2026" target="_blank" class="github-btn" style="margin-top:12px;">
+          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          在 GitHub 上查看
+        </a>
+      </div>
+      <h2>项目概述</h2>
+      <p>本项目解决2026年MCM/ICM D题：为NBA球队估值和战略决策开发定量框架。我们从NBA历史数据中构建了多层次特征系统，建立了球队表现和收入的预测模型，并设计了蒙特卡洛模拟引擎，在奢侈税约束下优化阵容管理、负荷管理和票务策略。</p>
+      <div class="highlight-box">
+        <p><strong>我的角色：</strong>建模负责人。负责特征工程、模型选择、验证策略设计和蒙特卡洛模拟框架的策略优化。</p>
+      </div>
+      <h2>团队分工</h2>
+      <div class="team-roles">
+        <div class="team-role"><strong>钱弘毅</strong><br><span>建模负责人</span></div>
+        <div class="team-role"><strong>队友2</strong><br><span>编程与写作</span></div>
+        <div class="team-role"><strong>队友3</strong><br><span>研究与写作</span></div>
+      </div>
+      <h2>主要贡献</h2>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">特征工程与数据流程</h3>
+      <ul>
+        <li>从Basketball-Reference（2021&ndash;2025）的NBA原始数据中构建多层次特征系统，量化球员伤病风险和球队结构差异。</li>
+        <li>构建特征以评估NBA球队的竞技潜力和商业潜力，包括球员表现指标、阵容稳定性指数和财务指标。</li>
+        <li>实施严格的时间序列验证协议，防止体育预测中的数据泄露。</li>
+      </ul>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">预测建模</h3>
+      <ul>
+        <li>开发了<strong>级联高斯过程回归（GPR）流程</strong>，从工程特征中预测胜率、季后赛深度和球队收入。</li>
+        <li>采用<strong>自定义多 horizon 验证策略</strong>，通过过去赛季训练、未来赛季测试，严格消除时间数据泄露。</li>
+        <li>将GPR与随机森林基线模型对比；GPR在稀疏伤病风险场景中表现出更优的不确定性量化能力。</li>
+        <li>通过前向交叉验证的网格搜索进行超参数优化。</li>
+      </ul>
+      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">蒙特卡洛策略优化</h3>
+      <ul>
+        <li>设计了整合NBA奢侈税约束和价格弹性模型的<strong>蒙特卡洛模拟引擎</strong>。</li>
+        <li>在阵容交易、球员负荷管理和动态票务定价的复杂决策空间中进行优化，最大化长期球队投资回报。</li>
+        <li>在不同阵容配置下模拟多个赛季轨迹，识别短期竞争力与长期财务可持续性之间的帕累托最优权衡。</li>
+      </ul>
+      <h2>模型架构</h2>
+      <div class="highlight-box">
+        <p><strong>级联GPR流程：</strong>第一阶段从阵容特征预测常规赛胜率；第二阶段用胜率+球队特征预测季后赛深度；第三阶段用竞技结果预测球队收入。每个阶段的结果输入蒙特卡洛模拟进行策略评估。</p>
+      </div>
+      <h2>技术栈</h2>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">Gaussian Process Regression</span><span class="tag">Random Forest</span>
+        <span class="tag">Monte Carlo Simulation</span><span class="tag">Time-Series Validation</span><span class="tag">NumPy</span>
+        <span class="tag">Pandas</span><span class="tag">scikit-learn</span><span class="tag">Mathematical Modeling</span><span class="tag">Sports Analytics</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="lang-en">&copy; 2026 Hongyi Qian</span><span class="lang-zh">&copy; 2026 钱弘毅</span>
+    &middot; <a href="index.html">Home / 主页</a> &middot; <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
+  </footer>
+
+  <script>
+    (function() { var saved = localStorage.getItem('lang'); document.body.setAttribute('lang', saved === 'zh' ? 'zh' : 'en'); })();
+    function toggleLang() { var current = document.body.getAttribute('lang'); var next = current === 'en' ? 'zh' : 'en'; document.body.setAttribute('lang', next); localStorage.setItem('lang', next); }
+  </script>
+
+</body>
+</html>
