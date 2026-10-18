@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SAE-Detoxification | Hongyi Qian</title>
+  <title>SAE Detoxification &amp; Model Alignment | Hongyi Qian</title>
+  <meta name="description" content="Exploring feature-level interventions for safer language generation and the practical limits that motivated a shift toward fine-tuning and reinforcement learning.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -221,87 +222,28 @@
     </div>
   </nav>
 
-  <div class="container">
-
-    <!-- EN -->
-    <div class="lang-en">
-      <div class="project-header">
-        <div class="project-label">Research Project &middot; Duke University</div>
-        <h1>SAE-Detoxification: Mechanistic Interpretability for LLM Safety</h1>
-        <div class="project-meta">Sep 2025 &ndash; Present &middot; With Dr. Lawrence Carin, Duke University</div>
-        <a href="https://github.com/SAE-Interpretability/SAE-Detoxification" target="_blank" class="github-btn">
+  <main class="container">
+    <div class="lang-en"><div class="project-header"><div class="project-label">Research · Duke University</div><h1>SAE Detoxification &amp; Model Alignment</h1><div class="project-meta">Sep 2025 – Present · Advisor: Prof. Lawrence Carin, Duke University</div>        <a href="https://github.com/SAE-Interpretability/SAE-Detoxification" target="_blank" class="github-btn">
           <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           View on GitHub
-        </a>
-      </div>
-      <h2>Overview</h2>
-      <p>This project applies <strong>Sparse Autoencoders (SAEs)</strong> to decode activation patterns in autoregressive language models (specifically Gemma-2-2B), achieving a mechanistic understanding of detoxification behaviors. By analyzing the <strong>Pareto Frontier</strong> between Toxicity Reduction (Safety) and Cross-Entropy Loss (Side Effects), we identify optimal features that offer the best trade-off for steering LLMs toward safer outputs without compromising general capabilities.</p>
-      <div class="highlight-box">
-        <p><strong>My Role:</strong> Research assistant in Dr. Lawrence Carin's lab. I contributed to the SAE-based feature analysis pipeline, assisted in validating the feasibility of the FST model, and participated in the full experimental cycle from data generation to evaluation.</p>
-      </div>
-      <h2>Key Contributions</h2>
-      <ul>
-        <li>Applied Sparse Autoencoders to decode activation patterns in autoregressive language models (Gemma-2-2b), achieving mechanistic understanding of detoxification behaviors through feature-level analysis.</li>
-        <li>Analyzed the Pareto frontier between toxicity reduction and cross-entropy loss to identify steering features that minimize side effects while maximizing safety improvements.</li>
-        <li>Built and ran the end-to-end steering pipeline including feature discovery, generation, toxicity scoring, and trade-off visualization using BERT-based Detoxify and WikiText-2 CE loss metrics.</li>
-        <li>Generated publication-quality Pareto plots and per-feature trade-off visualizations.</li>
-      </ul>
-      <h2>Technical Details</h2>
-      <ul>
-        <li><strong>Model:</strong> Gemma-2-2B with SAE probes on residual stream (Layer 20)</li>
-        <li><strong>Feature Discovery:</strong> Parallel corpus differential analysis</li>
-        <li><strong>Evaluation:</strong> BERT-based toxicity scoring (Detoxify) + WikiText-2 CE loss</li>
-        <li><strong>Steering:</strong> Feature-level steering with configurable strength</li>
-        <li><strong>Analysis:</strong> Pareto frontier computation and trade-off visualization</li>
-      </ul>
-      <h2>Technologies</h2>
-      <div class="tags">
-        <span class="tag">Python</span><span class="tag">Sparse Autoencoders</span><span class="tag">Transformer</span>
-        <span class="tag">Gemma-2-2B</span><span class="tag">LLM Safety</span><span class="tag">Mechanistic Interpretability</span>
-        <span class="tag">BERT</span><span class="tag">Pareto Analysis</span>
-      </div>
+        </a></div>
+<h2>Research Question</h2><p>Can token-level hidden representations be decomposed into interpretable features and used for targeted interventions on harmful language generation?</p>
+<h2>My Work</h2><ul><li>Explored SAEs to interpret activation patterns in Gemma-2-2B and modified Transformer architectures.</li><li>Identified features associated with harmful generations and intervened on them to steer the models toward less harmful outputs.</li><li>Examined whether the learned features were sufficiently stable and useful for reliable intervention.</li></ul>
+<h2>Findings &amp; Limitations</h2><p>The approach was highly sensitive to hyperparameters and to the activation data used for training, and dead features were common. Training on a sufficiently representative activation distribution was computationally expensive. Sparsity alone did not guarantee interpretable or useful features, and SAE-based detoxification did not consistently outperform alternative methods.</p>
+<h2>Subsequent Direction</h2><p>After discussing these limitations, we shifted our focus to supervised fine-tuning and reinforcement learning to align model outputs with our intended principles.</p>
+<h2>Methods &amp; Topics</h2><div class="tags"><span class="tag">Gemma-2-2B</span><span class="tag">Sparse Autoencoders</span><span class="tag">Mechanistic Interpretability</span><span class="tag">LLM Safety</span><span class="tag">Model Alignment</span></div>
     </div>
-
-    <!-- ZH -->
-    <div class="lang-zh">
-      <div class="project-header">
-        <div class="project-label">研究项目 &middot; 杜克大学</div>
-        <h1>SAE 去毒化：大语言模型安全的机械可解释性</h1>
-        <div class="project-meta">2025年9月 &ndash; 至今 &middot; 导师：Lawrence Carin 教授，杜克大学</div>
-        <a href="https://github.com/SAE-Interpretability/SAE-Detoxification" target="_blank" class="github-btn">
+    <div class="lang-zh"><div class="project-header"><div class="project-label">研究项目 · 杜克大学</div><h1>SAE 去毒化与模型对齐</h1><div class="project-meta">2025年9月 – 至今 · 导师：Lawrence Carin 教授，杜克大学</div>        <a href="https://github.com/SAE-Interpretability/SAE-Detoxification" target="_blank" class="github-btn">
           <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           在 GitHub 上查看
-        </a>
-      </div>
-      <h2>项目概述</h2>
-      <p>本项目应用<strong>稀疏自编码器（SAE）</strong>解码自回归语言模型（Gemma-2-2B）中的激活模式，实现对去毒化行为的机械可解释性理解。通过分析毒性降低（安全性）与交叉熵损失（副作用）之间的<strong>帕累托前沿</strong>，我们识别出最优特征，在不对通用能力造成损害的前提下，引导大语言模型输出更安全的内容。</p>
-      <div class="highlight-box">
-        <p><strong>我的角色：</strong>Lawrence Carin教授实验室的研究助理。我参与了基于SAE的特征分析流程，辅助验证FST（特征引导去毒化）模型的可行性，并参与了从数据生成到评估的完整实验周期。</p>
-      </div>
-      <h2>主要贡献</h2>
-      <ul>
-        <li>应用稀疏自编码器解码自回归语言模型（Gemma-2-2b）中的激活模式，通过特征级分析实现对去毒化行为的机械可解释性理解。</li>
-        <li>分析毒性降低与交叉熵损失之间的帕累托前沿，识别出副作用最小化且安全性最大化的引导特征。</li>
-        <li>构建并运行端到端引导流程，包括特征发现、文本生成、毒性评分和权衡可视化，使用基于BERT的Detoxify和WikiText-2交叉熵损失指标。</li>
-        <li>生成可用于发表的帕累托图和逐特征权衡可视化。</li>
-      </ul>
-      <h2>技术细节</h2>
-      <ul>
-        <li><strong>模型：</strong>Gemma-2-2B，残差流（第20层）SAE探针</li>
-        <li><strong>特征发现：</strong>平行语料库差异分析</li>
-        <li><strong>评估：</strong>基于BERT的毒性评分（Detoxify）+ WikiText-2交叉熵损失</li>
-        <li><strong>引导：</strong>特征级引导，可配置引导强度</li>
-        <li><strong>分析：</strong>帕累托前沿计算与权衡可视化</li>
-      </ul>
-      <h2>技术栈</h2>
-      <div class="tags">
-        <span class="tag">Python</span><span class="tag">Sparse Autoencoders</span><span class="tag">Transformer</span>
-        <span class="tag">Gemma-2-2B</span><span class="tag">LLM Safety</span><span class="tag">Mechanistic Interpretability</span>
-        <span class="tag">BERT</span><span class="tag">Pareto Analysis</span>
-      </div>
+        </a></div>
+<h2>研究问题</h2><p>能否将 token 级隐藏表征分解为可解释特征，并利用这些特征对有害文本生成进行定向干预？</p>
+<h2>我的工作</h2><ul><li>使用 SAE 探索 Gemma-2-2B 与改进型 Transformer 的激活模式。</li><li>识别与有害生成相关的特征，并通过干预这些特征，引导模型减少有害输出。</li><li>考察学得的特征是否足够稳定，以及是否能够支持可靠干预。</li></ul>
+<h2>发现与局限</h2><p>该方法对超参数和训练激活数据高度敏感，失活特征也较常见。在足够有代表性的激活分布上训练 SAE，计算成本较高。稀疏目标本身不保证特征可解释或适合干预，基于 SAE 的去毒化也没有持续优于其他方法。</p>
+<h2>后续方向</h2><p>在讨论这些局限后，我们将重点转向监督微调和强化学习，以使模型输出符合预期原则。</p>
+<h2>方法与主题</h2><div class="tags"><span class="tag">Gemma-2-2B</span><span class="tag">Sparse Autoencoders</span><span class="tag">Mechanistic Interpretability</span><span class="tag">LLM Safety</span><span class="tag">Model Alignment</span></div>
     </div>
-
-  </div>
+  </main>
 
   <footer>
     <span class="lang-en">&copy; 2026 Hongyi Qian</span>
@@ -314,11 +256,13 @@
     (function() {
       var saved = localStorage.getItem('lang');
       document.body.setAttribute('lang', saved === 'zh' ? 'zh' : 'en');
+      document.documentElement.setAttribute('lang', saved === 'zh' ? 'zh-CN' : 'en');
     })();
     function toggleLang() {
       var current = document.body.getAttribute('lang');
       var next = current === 'en' ? 'zh' : 'en';
       document.body.setAttribute('lang', next);
+      document.documentElement.setAttribute('lang', next === 'zh' ? 'zh-CN' : 'en');
       localStorage.setItem('lang', next);
     }
   </script>
