@@ -3,263 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f7f3">
   <title>In-Context Learning in Modified Transformers | Hongyi Qian</title>
   <meta name="description" content="Benchmarking and ablation studies of Transformer architectures motivated by gradient-descent theories of in-context learning.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --text: #1a1a1a;
-      --text-secondary: #555;
-      --text-muted: #888;
-      --accent: #2563eb;
-      --border: #e5e5e5;
-      --bg: #ffffff;
-      --bg-secondary: #f8f9fa;
-      --tag-bg: #eef2ff;
-      --tag-text: #4f46e5;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .lang-en, .lang-zh { display: none; }
-    body[lang="en"] .lang-en { display: block; }
-    body[lang="zh"] .lang-zh { display: block; }
-
-    .lang-toggle {
-      font-size: 13px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .lang-toggle:hover { background: var(--bg-secondary); border-color: #ccc; }
-
-    nav {
-      position: sticky;
-      top: 0;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-    }
-
-    .nav-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-    }
-
-    .back-link {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: 6px;
-      transition: all 0.2s;
-    }
-
-    .back-link:hover { background: var(--bg-secondary); color: var(--text); text-decoration: none; }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-
-    .project-header { margin-bottom: 32px; }
-
-    .project-label {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    h1 {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 12px;
-    }
-
-    .project-meta {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-
-    .github-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--text);
-      color: var(--bg);
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: opacity 0.2s;
-    }
-
-    .github-btn:hover { opacity: 0.85; text-decoration: none; }
-
-    .github-btn svg { width: 16px; height: 16px; fill: currentColor; }
-
-    h2 {
-      font-size: 20px;
-      font-weight: 600;
-      margin: 32px 0 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    p {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 20px;
-    }
-
-    ul li {
-      position: relative;
-      padding-left: 18px;
-      margin-bottom: 10px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-
-    ul li::before {
-      content: "\2013";
-      position: absolute;
-      left: 0;
-      color: var(--text-muted);
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .tag {
-      font-size: 12px;
-      font-weight: 500;
-      padding: 4px 12px;
-      border-radius: 100px;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-    }
-
-    .highlight-box {
-      background: var(--bg-secondary);
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin: 20px 0;
-      border-left: 3px solid var(--accent);
-    }
-
-    .highlight-box p { margin: 0; font-size: 14px; }
-    .highlight-box strong { color: var(--text); }
-
-    footer {
-      text-align: center;
-      padding: 40px 24px;
-      border-top: 1px solid var(--border);
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 40px;
-    }
-
-    @media (max-width: 640px) {
-      h1 { font-size: 26px; }
-      .nav-container { padding: 0 16px; }
-    }
-  </style>
+  <link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
 </head>
-<body lang="en">
-
-  <nav>
-    <div class="nav-container">
-      <a href="index.html" class="back-link">&larr; <span class="lang-en">Back to Home</span><span class="lang-zh">返回主页</span></a>
-      <button class="lang-toggle" onclick="toggleLang()" title="Switch language">
-        <span class="lang-en">EN/中</span><span class="lang-zh">中/EN</span>
-      </button>
+<body lang="en" class="detail-page"><header class="site-header">
+  <nav class="nav-container" aria-label="Main navigation">
+    <a class="wordmark" href="index.html" aria-label="Hongyi Qian home">hq<span class="wordmark-dot">.</span></a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="index.html#main"><span class="lang-en">About</span><span class="lang-zh">关于</span></a>
+        <a href="index.html#research"><span class="lang-en">Research</span><span class="lang-zh">研究</span></a>
+        <a href="index.html#experience"><span class="lang-en">Experience</span><span class="lang-zh">经历</span></a>
+        <a href="projects.html"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a>
+      </div>
+      <button class="lang-toggle" type="button" aria-label="Switch to Chinese"><span class="lang-en">中文</span><span class="lang-zh">EN</span></button>
     </div>
   </nav>
-
-  <main class="container">
-    <div class="lang-en"><div class="project-header"><div class="project-label">Research · Duke University</div><h1>In-Context Learning in Modified Transformers</h1><div class="project-meta">Sep 2025 – Present · Advisor: Prof. Lawrence Carin, Duke University</div></div>
-<h2>Research Question</h2><p>How do Transformers learn from context, and do predictions from gradient-descent theories of in-context learning persist at the scale of language models?</p>
-<h2>My Work</h2><ul><li>Studied the theoretical basis of modified Transformer architectures previously developed in the group at 353M and 1.3B parameters.</li><li>Evaluated these architectures against vanilla Transformers in in-context learning settings on benchmarks including ARC and MMLU.</li><li>Ablated the ICL-related computation to examine its contribution to model performance.</li></ul>
-<h2>Observations &amp; Interpretation</h2><p>The modified architectures performed comparably to vanilla baselines, while ablating the ICL-related computation caused a substantial performance drop. These observations informed my investigation of the hypothesis that inference can resemble gradient descent on a proxy objective; they do not, by themselves, establish a general account of Transformer inference.</p>
-<h2>Connection to Model Alignment</h2><p>This work led me to ask whether modified architectures produce token-level representations that are easier to interpret and use for targeted interventions. I subsequently explored SAE-based detoxification and the practical limitations of feature-level steering.</p>
-<h2>Methods &amp; Topics</h2><div class="tags"><span class="tag">Transformer</span><span class="tag">In-Context Learning</span><span class="tag">ARC</span><span class="tag">MMLU</span><span class="tag">Ablation Studies</span></div>
+</header><main class="container project-detail page-width">
+    <a href="projects.html" class="back-link">← <span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a><div class="lang-en">
+<div class="project-header">
+<div class="project-label">Research · Duke University</div>
+<h1>In-Context Learning in Modified Transformers</h1>
+<div class="project-meta">Sep 2025 – Present · Advisor: Prof. Lawrence Carin, Duke University</div>
+</div>
+<h2>Research Question</h2>
+<p>How do Transformers learn from context, and do predictions from gradient-descent theories of in-context learning persist at the scale of language models?</p>
+<h2>My Work</h2>
+<ul>
+<li>Studied the theoretical basis of modified Transformer architectures previously developed in the group at 353M and 1.3B parameters.</li>
+<li>Evaluated these architectures against vanilla Transformers in in-context learning settings on benchmarks including ARC and MMLU.</li>
+<li>Ablated the ICL-related computation to examine its contribution to model performance.</li>
+</ul>
+<h2>Observations &amp; Interpretation</h2>
+<p>The modified architectures performed comparably to vanilla baselines, while ablating the ICL-related computation caused a substantial performance drop. These observations informed my investigation of the hypothesis that inference can resemble gradient descent on a proxy objective; they do not, by themselves, establish a general account of Transformer inference.</p>
+<h2>Connection to Model Alignment</h2>
+<p>This work led me to ask whether modified architectures produce token-level representations that are easier to interpret and use for targeted interventions. I subsequently explored SAE-based detoxification and the practical limitations of feature-level steering.</p>
+<h2>Methods &amp; Topics</h2>
+<div class="tags">
+<span class="tag">Transformer</span><span class="tag">In-Context Learning</span><span class="tag">ARC</span><span class="tag">MMLU</span><span class="tag">Ablation Studies</span>
+</div>
     </div>
-    <div class="lang-zh"><div class="project-header"><div class="project-label">研究项目 · 杜克大学</div><h1>改进型 Transformer 的上下文学习机制</h1><div class="project-meta">2025年9月 – 至今 · 导师：Lawrence Carin 教授，杜克大学</div></div>
-<h2>研究问题</h2><p>Transformer 如何从上下文中学习？上下文学习梯度下降理论的预测，能否在语言模型规模下成立？</p>
-<h2>我的工作</h2><ul><li>学习课题组此前开发的改进型 Transformer 的理论基础，研究规模包括 353M 和 1.3B 参数模型。</li><li>在 ARC、MMLU 等基准的上下文学习设置中，将改进架构与标准 Transformer 比较。</li><li>消融上下文学习相关计算，考察其对模型表现的贡献。</li></ul>
-<h2>观察与解释</h2><p>改进架构与标准基线表现相近，而消融上下文学习相关计算后，模型性能明显下降。这些观察帮助我研究“推理是否类似于对代理目标进行梯度下降”的假设，但其本身不足以构成对 Transformer 推理的一般性证明。</p>
-<h2>与模型对齐的联系</h2><p>这项工作促使我进一步思考：改进架构是否能产生更容易解释、也更适合定向干预的 token 级表征？随后，我探索了基于 SAE 的去毒化，以及特征级引导在实践中的局限。</p>
-<h2>方法与主题</h2><div class="tags"><span class="tag">Transformer</span><span class="tag">In-Context Learning</span><span class="tag">ARC</span><span class="tag">MMLU</span><span class="tag">Ablation Studies</span></div>
+    <div class="lang-zh">
+<div class="project-header">
+<div class="project-label">研究项目 · 杜克大学</div>
+<h1>改进型 Transformer 的上下文学习机制</h1>
+<div class="project-meta">2025年9月 – 至今 · 导师：Lawrence Carin 教授，杜克大学</div>
+</div>
+<h2>研究问题</h2>
+<p>Transformer 如何从上下文中学习？上下文学习梯度下降理论的预测，能否在语言模型规模下成立？</p>
+<h2>我的工作</h2>
+<ul>
+<li>学习课题组此前开发的改进型 Transformer 的理论基础，研究规模包括 353M 和 1.3B 参数模型。</li>
+<li>在 ARC、MMLU 等基准的上下文学习设置中，将改进架构与标准 Transformer 比较。</li>
+<li>消融上下文学习相关计算，考察其对模型表现的贡献。</li>
+</ul>
+<h2>观察与解释</h2>
+<p>改进架构与标准基线表现相近，而消融上下文学习相关计算后，模型性能明显下降。这些观察帮助我研究“推理是否类似于对代理目标进行梯度下降”的假设，但其本身不足以构成对 Transformer 推理的一般性证明。</p>
+<h2>与模型对齐的联系</h2>
+<p>这项工作促使我进一步思考：改进架构是否能产生更容易解释、也更适合定向干预的 token 级表征？随后，我探索了基于 SAE 的去毒化，以及特征级引导在实践中的局限。</p>
+<h2>方法与主题</h2>
+<div class="tags">
+<span class="tag">Transformer</span><span class="tag">In-Context Learning</span><span class="tag">ARC</span><span class="tag">MMLU</span><span class="tag">Ablation Studies</span>
+</div>
     </div>
   </main>
 
-  <footer>
-    <span class="lang-en">&copy; 2026 Hongyi Qian</span>
-    <span class="lang-zh">&copy; 2026 钱弘毅</span>
-    &middot; <a href="index.html">Home / 主页</a> &middot;
-    <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
-  </footer>
 
-  <script>
-    (function() {
-      var saved = localStorage.getItem('lang');
-      document.body.setAttribute('lang', saved === 'zh' ? 'zh' : 'en');
-      document.documentElement.setAttribute('lang', saved === 'zh' ? 'zh-CN' : 'en');
-    })();
-    function toggleLang() {
-      var current = document.body.getAttribute('lang');
-      var next = current === 'en' ? 'zh' : 'en';
-      document.body.setAttribute('lang', next);
-      document.documentElement.setAttribute('lang', next === 'zh' ? 'zh-CN' : 'en');
-      localStorage.setItem('lang', next);
-    }
-  </script>
-
+<footer class="site-footer"><div class="footer-inner">
+  <a class="footer-name" href="index.html"><span class="lang-en">Hongyi Qian</span><span class="lang-zh">钱弘毅</span></a>
+  <span class="footer-note"><span class="lang-en">Mechanistic interpretability &amp; multimodal reasoning</span><span class="lang-zh">机制可解释性与多模态推理</span></span>
+  <span class="copyright">&copy; 2026</span>
+</div></footer>
 </body>
 </html>

@@ -3,263 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f7f3">
   <title>Visual Representations in Energy-Based Models | Hongyi Qian</title>
   <meta name="description" content="Exploring SAE channel expansion for robust classification and background diversity in energy-based image generation.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --text: #1a1a1a;
-      --text-secondary: #555;
-      --text-muted: #888;
-      --accent: #2563eb;
-      --border: #e5e5e5;
-      --bg: #ffffff;
-      --bg-secondary: #f8f9fa;
-      --tag-bg: #eef2ff;
-      --tag-text: #4f46e5;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .lang-en, .lang-zh { display: none; }
-    body[lang="en"] .lang-en { display: block; }
-    body[lang="zh"] .lang-zh { display: block; }
-
-    .lang-toggle {
-      font-size: 13px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .lang-toggle:hover { background: var(--bg-secondary); border-color: #ccc; }
-
-    nav {
-      position: sticky;
-      top: 0;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-    }
-
-    .nav-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-    }
-
-    .back-link {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: 6px;
-      transition: all 0.2s;
-    }
-
-    .back-link:hover { background: var(--bg-secondary); color: var(--text); text-decoration: none; }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-
-    .project-header { margin-bottom: 32px; }
-
-    .project-label {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    h1 {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 12px;
-    }
-
-    .project-meta {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-
-    .github-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--text);
-      color: var(--bg);
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: opacity 0.2s;
-    }
-
-    .github-btn:hover { opacity: 0.85; text-decoration: none; }
-
-    .github-btn svg { width: 16px; height: 16px; fill: currentColor; }
-
-    h2 {
-      font-size: 20px;
-      font-weight: 600;
-      margin: 32px 0 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    p {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 20px;
-    }
-
-    ul li {
-      position: relative;
-      padding-left: 18px;
-      margin-bottom: 10px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-
-    ul li::before {
-      content: "\2013";
-      position: absolute;
-      left: 0;
-      color: var(--text-muted);
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .tag {
-      font-size: 12px;
-      font-weight: 500;
-      padding: 4px 12px;
-      border-radius: 100px;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-    }
-
-    .highlight-box {
-      background: var(--bg-secondary);
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin: 20px 0;
-      border-left: 3px solid var(--accent);
-    }
-
-    .highlight-box p { margin: 0; font-size: 14px; }
-    .highlight-box strong { color: var(--text); }
-
-    footer {
-      text-align: center;
-      padding: 40px 24px;
-      border-top: 1px solid var(--border);
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 40px;
-    }
-
-    @media (max-width: 640px) {
-      h1 { font-size: 26px; }
-      .nav-container { padding: 0 16px; }
-    }
-  </style>
+  <link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
 </head>
-<body lang="en">
-
-  <nav>
-    <div class="nav-container">
-      <a href="index.html" class="back-link">&larr; <span class="lang-en">Back to Home</span><span class="lang-zh">返回主页</span></a>
-      <button class="lang-toggle" onclick="toggleLang()" title="Switch language">
-        <span class="lang-en">EN/中</span><span class="lang-zh">中/EN</span>
-      </button>
+<body lang="en" class="detail-page"><header class="site-header">
+  <nav class="nav-container" aria-label="Main navigation">
+    <a class="wordmark" href="index.html" aria-label="Hongyi Qian home">hq<span class="wordmark-dot">.</span></a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="index.html#main"><span class="lang-en">About</span><span class="lang-zh">关于</span></a>
+        <a href="index.html#research"><span class="lang-en">Research</span><span class="lang-zh">研究</span></a>
+        <a href="index.html#experience"><span class="lang-en">Experience</span><span class="lang-zh">经历</span></a>
+        <a href="projects.html"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a>
+      </div>
+      <button class="lang-toggle" type="button" aria-label="Switch to Chinese"><span class="lang-en">中文</span><span class="lang-zh">EN</span></button>
     </div>
   </nav>
-
-  <main class="container">
-    <div class="lang-en"><div class="project-header"><div class="project-label">Research · Duke Kunshan University</div><h1>Visual Representations in Energy-Based Models</h1><div class="project-meta">Dec 2025 – May 2026 · Advisor: Prof. Kaizhu Huang, Duke Kunshan University</div></div>
-<h2>Research Question</h2><p>Could sparse autoencoders reveal useful structure in CNN representations and identify features relevant to robust classification in energy-based models?</p>
-<h2>My Work</h2><ul><li>Investigated channel expansion with SAEs, hypothesizing that it could disentangle non-robust features.</li><li>Examined how CNN representation structure affects the suitability of SAE-based analysis and intervention.</li><li>Explored resampling and generation initialization to diversify images produced by joint energy-based models.</li></ul>
-<h2>Findings &amp; Limitations</h2><p>Under our training setup, the CNN activations were already sparse, and the SAE did not further decompose them into useful features. The performance cost of encoding and decoding outweighed the robustness gains. This result taught me to evaluate an interpretability method in relation to the structure of the representations it is applied to.</p>
-<h2>Generation Diversity</h2><p>I observed that class-related robust representations could restrict background diversity in generated images. Starting generation from an unrelated label partially alleviated this effect; it did not fully resolve the diversity limitation.</p>
-<h2>Methods &amp; Topics</h2><div class="tags"><span class="tag">Energy-Based Models</span><span class="tag">CNN</span><span class="tag">Sparse Autoencoders</span><span class="tag">Robustness</span><span class="tag">Image Generation</span></div>
+</header><main class="container project-detail page-width">
+    <a href="projects.html" class="back-link">← <span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a><div class="lang-en">
+<div class="project-header">
+<div class="project-label">Research · Duke Kunshan University</div>
+<h1>Visual Representations in Energy-Based Models</h1>
+<div class="project-meta">Dec 2025 – May 2026 · Advisor: Prof. Kaizhu Huang, Duke Kunshan University</div>
+</div>
+<h2>Research Question</h2>
+<p>Could sparse autoencoders reveal useful structure in CNN representations and identify features relevant to robust classification in energy-based models?</p>
+<h2>My Work</h2>
+<ul>
+<li>Investigated channel expansion with SAEs, hypothesizing that it could disentangle non-robust features.</li>
+<li>Examined how CNN representation structure affects the suitability of SAE-based analysis and intervention.</li>
+<li>Explored resampling and generation initialization to diversify images produced by joint energy-based models.</li>
+</ul>
+<h2>Findings &amp; Limitations</h2>
+<p>Under our training setup, the CNN activations were already sparse, and the SAE did not further decompose them into useful features. The performance cost of encoding and decoding outweighed the robustness gains. This result taught me to evaluate an interpretability method in relation to the structure of the representations it is applied to.</p>
+<h2>Generation Diversity</h2>
+<p>I observed that class-related robust representations could restrict background diversity in generated images. Starting generation from an unrelated label partially alleviated this effect; it did not fully resolve the diversity limitation.</p>
+<h2>Methods &amp; Topics</h2>
+<div class="tags">
+<span class="tag">Energy-Based Models</span><span class="tag">CNN</span><span class="tag">Sparse Autoencoders</span><span class="tag">Robustness</span><span class="tag">Image Generation</span>
+</div>
     </div>
-    <div class="lang-zh"><div class="project-header"><div class="project-label">研究项目 · 昆山杜克大学</div><h1>能量模型中的视觉表征</h1><div class="project-meta">2025年12月 – 2026年5月 · 导师：Kaizhu Huang 教授，昆山杜克大学</div></div>
-<h2>研究问题</h2><p>稀疏自编码器能否揭示 CNN 表征中的有效结构，并找到与能量模型鲁棒分类相关的特征？</p>
-<h2>我的工作</h2><ul><li>研究通过 SAE 扩展通道维度，检验其能否解耦非鲁棒特征的假设。</li><li>考察 CNN 表征结构如何影响 SAE 分析与干预的适用性。</li><li>探索重采样和生成初始化方法，提高联合能量模型生成图像的多样性。</li></ul>
-<h2>发现与局限</h2><p>在本实验设置下，CNN 激活已经较为稀疏，SAE 未能进一步分解出有用特征，编解码的性能代价也超过了鲁棒性收益。这一结果促使我结合表征自身的结构，判断可解释性方法是否适用。</p>
-<h2>生成多样性</h2><p>我观察到，与类别相关的鲁棒表征可能限制生成图像的背景多样性。从无关类别开始生成，可以部分缓解这一现象，但没有完全解决多样性受限的问题。</p>
-<h2>方法与主题</h2><div class="tags"><span class="tag">Energy-Based Models</span><span class="tag">CNN</span><span class="tag">Sparse Autoencoders</span><span class="tag">Robustness</span><span class="tag">Image Generation</span></div>
+    <div class="lang-zh">
+<div class="project-header">
+<div class="project-label">研究项目 · 昆山杜克大学</div>
+<h1>能量模型中的视觉表征</h1>
+<div class="project-meta">2025年12月 – 2026年5月 · 导师：Kaizhu Huang 教授，昆山杜克大学</div>
+</div>
+<h2>研究问题</h2>
+<p>稀疏自编码器能否揭示 CNN 表征中的有效结构，并找到与能量模型鲁棒分类相关的特征？</p>
+<h2>我的工作</h2>
+<ul>
+<li>研究通过 SAE 扩展通道维度，检验其能否解耦非鲁棒特征的假设。</li>
+<li>考察 CNN 表征结构如何影响 SAE 分析与干预的适用性。</li>
+<li>探索重采样和生成初始化方法，提高联合能量模型生成图像的多样性。</li>
+</ul>
+<h2>发现与局限</h2>
+<p>在本实验设置下，CNN 激活已经较为稀疏，SAE 未能进一步分解出有用特征，编解码的性能代价也超过了鲁棒性收益。这一结果促使我结合表征自身的结构，判断可解释性方法是否适用。</p>
+<h2>生成多样性</h2>
+<p>我观察到，与类别相关的鲁棒表征可能限制生成图像的背景多样性。从无关类别开始生成，可以部分缓解这一现象，但没有完全解决多样性受限的问题。</p>
+<h2>方法与主题</h2>
+<div class="tags">
+<span class="tag">Energy-Based Models</span><span class="tag">CNN</span><span class="tag">Sparse Autoencoders</span><span class="tag">Robustness</span><span class="tag">Image Generation</span>
+</div>
     </div>
   </main>
 
-  <footer>
-    <span class="lang-en">&copy; 2026 Hongyi Qian</span>
-    <span class="lang-zh">&copy; 2026 钱弘毅</span>
-    &middot; <a href="index.html">Home / 主页</a> &middot;
-    <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
-  </footer>
 
-  <script>
-    (function() {
-      var saved = localStorage.getItem('lang');
-      document.body.setAttribute('lang', saved === 'zh' ? 'zh' : 'en');
-      document.documentElement.setAttribute('lang', saved === 'zh' ? 'zh-CN' : 'en');
-    })();
-    function toggleLang() {
-      var current = document.body.getAttribute('lang');
-      var next = current === 'en' ? 'zh' : 'en';
-      document.body.setAttribute('lang', next);
-      document.documentElement.setAttribute('lang', next === 'zh' ? 'zh-CN' : 'en');
-      localStorage.setItem('lang', next);
-    }
-  </script>
-
+<footer class="site-footer"><div class="footer-inner">
+  <a class="footer-name" href="index.html"><span class="lang-en">Hongyi Qian</span><span class="lang-zh">钱弘毅</span></a>
+  <span class="footer-note"><span class="lang-en">Mechanistic interpretability &amp; multimodal reasoning</span><span class="lang-zh">机制可解释性与多模态推理</span></span>
+  <span class="copyright">&copy; 2026</span>
+</div></footer>
 </body>
 </html>

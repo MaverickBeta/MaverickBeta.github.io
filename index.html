@@ -3,681 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f7f3">
   <title>Hongyi Qian | Mechanistic Interpretability &amp; Multimodal Reasoning</title>
-  <meta name="description" content="Hongyi Qian studies mechanistic interpretability, in-context learning, model alignment, and visual grounding in language and vision-language models.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --text: #1a1a1a;
-      --text-secondary: #555;
-      --text-muted: #888;
-      --accent: #2563eb;
-      --accent-hover: #1d4ed8;
-      --border: #e5e5e5;
-      --bg: #ffffff;
-      --bg-secondary: #f8f9fa;
-      --tag-bg: #eef2ff;
-      --tag-text: #4f46e5;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* Language toggle */
-    .lang-en, .lang-zh { display: none; }
-    body[lang="en"] .lang-en { display: block; }
-    body[lang="zh"] .lang-zh { display: block; }
-    body[lang="en"] .lang-en-inline { display: inline; }
-    body[lang="zh"] .lang-zh-inline { display: inline; }
-    body[lang="en"] .lang-en-flex { display: flex; }
-    body[lang="zh"] .lang-zh-flex { display: flex; }
-
-    .lang-toggle {
-      font-size: 13px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .lang-toggle:hover {
-      background: var(--bg-secondary);
-      border-color: #ccc;
-    }
-
-    /* Navigation */
-    nav {
-      position: sticky;
-      top: 0;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-    }
-
-    .nav-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-    }
-
-    .nav-left { display: flex; align-items: center; gap: 12px; }
-
-    .nav-name {
-      font-weight: 600;
-      font-size: 16px;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .nav-name:hover { text-decoration: none; }
-
-    .nav-right { display: flex; align-items: center; gap: 4px; }
-
-    .nav-links { display: flex; gap: 4px; }
-
-    .nav-links a {
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .nav-links a:hover {
-      background: var(--bg-secondary);
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    /* Sections */
-    section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 60px 24px;
-    }
-
-    section + section { border-top: 1px solid var(--border); }
-
-    /* Hero / Main */
-    #main { padding-top: 48px; padding-bottom: 48px; }
-
-    h1 {
-      font-size: 40px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      font-size: 18px;
-      color: var(--text-secondary);
-      margin-bottom: 24px;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .info-item {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .info-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      margin-bottom: 2px;
-    }
-
-    .info-value {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .contact-line {
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-
-    .contact-line a { color: var(--accent); }
-
-    /* Section titles */
-    h2 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      letter-spacing: -0.3px;
-    }
-
-    h3 {
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    /* Cards */
-    .card {
-      background: var(--bg-secondary);
-      border-radius: 10px;
-      padding: 24px;
-      margin-bottom: 16px;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .card-meta {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-
-    .card ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .card ul li {
-      position: relative;
-      padding-left: 16px;
-      margin-bottom: 8px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .card ul li::before {
-      content: "\2013";
-      position: absolute;
-      left: 0;
-      color: var(--text-muted);
-    }
-
-    /* Tags */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 12px;
-    }
-
-    .tag {
-      font-size: 12px;
-      font-weight: 500;
-      padding: 3px 10px;
-      border-radius: 100px;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-    }
-
-    /* Project cards */
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-    }
-
-    .project-card {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    .project-card:hover {
-      border-color: #ccc;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      text-decoration: none;
-    }
-
-    .project-card h3 {
-      font-size: 16px;
-      margin-bottom: 6px;
-      color: var(--text);
-    }
-
-    .project-card p {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      margin-bottom: 12px;
-    }
-
-    .project-card .project-link {
-      font-size: 13px;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: var(--accent);
-    }
-
-    /* Skills */
-    .skill-group { margin-bottom: 20px; }
-
-    .skill-group h4 {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .awards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
-    }
-
-    .award-item {
-      background: var(--bg-secondary);
-      border-radius: 8px;
-      padding: 16px;
-    }
-
-    .award-item strong {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 2px;
-    }
-
-    .award-item span {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 40px 24px;
-      border-top: 1px solid var(--border);
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .research-intro { margin-bottom: 24px; line-height: 1.7; color: var(--text-secondary); }
-    .card-date { font-size: 13px; color: var(--text-muted); }
-    .project-category { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px; }
-    .project-category + h3 { margin-top: 8px; }
-    section { scroll-margin-top: 72px; }
-
-    /* Mobile */
-    @media (max-width: 640px) {
-      .nav-links a { padding: 6px 10px; font-size: 13px; }
-      h1 { font-size: 32px; }
-      .project-grid { grid-template-columns: 1fr; }
-      .info-grid { grid-template-columns: 1fr; }
-      .nav-container { padding: 10px 16px; height: auto; flex-wrap: wrap; gap: 8px; }
-      .nav-right { width: 100%; justify-content: space-between; gap: 8px; }
-      .nav-links { flex-wrap: wrap; gap: 0; }
-      .nav-links a { padding: 6px; font-size: 12px; }
-      .lang-toggle { flex-shrink: 0; }
-      section { scroll-margin-top: 120px; }
-    }
-  </style>
+  <meta name="description" content="Hongyi Qian studies mechanistic interpretability, in-context learning, model alignment, and multimodal reasoning at Duke and Duke Kunshan University.">
+  <link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
 </head>
-<body lang="en">
-
-  <!-- Navigation -->
-  <nav>
-    <div class="nav-container">
-      <div class="nav-left">
-        <a href="#main" class="nav-name"><span class="lang-en">Hongyi Qian</span><span class="lang-zh">钱弘毅</span></a>
+<body lang="en" class="home-page"><header class="site-header">
+  <nav class="nav-container" aria-label="Main navigation">
+    <a class="wordmark" href="index.html" aria-label="Hongyi Qian home">hq<span class="wordmark-dot">.</span></a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#main" class="active" aria-current="page"><span class="lang-en">About</span><span class="lang-zh">关于</span></a>
+        <a href="#research"><span class="lang-en">Research</span><span class="lang-zh">研究</span></a>
+        <a href="#experience"><span class="lang-en">Experience</span><span class="lang-zh">经历</span></a>
+        <a href="projects.html"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a>
       </div>
-      <div class="nav-right">
-        <div class="nav-links">
-          <a href="#main" class="nav-main">Main</a>
-          <a href="#research" class="nav-research">Research</a>
-          <a href="#projects" class="nav-projects">Projects</a>
-          <a href="#experience" class="nav-experience">Experience</a>
-          <a href="#skills" class="nav-skills">Skills</a>
-        </div>
-        <button class="lang-toggle" onclick="toggleLang()" title="Switch language">
-          <span class="lang-en">EN/中</span>
-          <span class="lang-zh">中/EN</span>
-        </button>
-      </div>
+      <button class="lang-toggle" type="button" aria-label="Switch to Chinese"><span class="lang-en">中文</span><span class="lang-zh">EN</span></button>
     </div>
   </nav>
-
-  <!-- Main / Hero -->
-  <section id="main">
-    <h1 class="lang-en">Hongyi Qian</h1>
-    <h1 class="lang-zh">钱弘毅</h1>
-
-    <!-- EN -->
-    <div class="lang-en">
-      <p class="subtitle">Mechanistic Interpretability &amp; Multimodal Reasoning</p>
-      <div class="info-grid">
-        <div class="info-item">
-          <span class="info-label">University</span>
-          <span class="info-value">Duke Kunshan &amp; Duke University &middot; Class of 2027</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">GPA</span>
-          <span class="info-value">3.82 / 4.0 (Duke: 4.0 / 4.0)</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Degree</span>
-          <span class="info-value">B.S. Data Science (DKU) &amp; B.A. Data Science (Duke)</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Study Abroad</span>
-          <span class="info-value">Fall 2025 at Duke University, Durham, NC</span>
-        </div>
-      </div>
-      <p class="contact-line">
-        <a href="mailto:hq38@duke.edu">hq38@duke.edu</a> &middot; +86 18862250806 &middot;
-        <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
-      </p>
+</header><main>
+  <section id="main" class="hero page-width">
+    <div class="hero-main">
+      <p class="eyebrow"><span class="lang-en">Data Science · Class of 2027</span><span class="lang-zh">数据科学 · 2027届</span></p>
+      <h1 class="lang-en">Hongyi Qian<span class="name-period">.</span></h1><h1 class="lang-zh">钱弘毅<span class="name-period">。</span></h1>
+      <p class="lang-en hero-focus">Mechanistic interpretability.<br>Multimodal reasoning.</p><p class="lang-zh hero-focus">理解模型的内部机制。<br>探索多模态推理。</p>
+      <p class="lang-en hero-description">I study how internal representations support reasoning, and how understanding them can make language and vision-language models more reliable.</p><p class="lang-zh hero-description">我研究内部表征如何支持推理，以及如何利用对这些表征的理解，让语言模型和视觉语言模型更加可靠。</p>
+      <div class="contact-links"><a href="mailto:hq38@duke.edu"><span class="lang-en">Email</span><span class="lang-zh">邮箱</span> <span aria-hidden="true">↗</span></a><a href="https://github.com/MaverickBeta" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a><a href="projects.html"><span class="lang-en">Explore my work</span><span class="lang-zh">查看我的项目</span> <span aria-hidden="true">↗</span></a></div>
     </div>
-
-    <!-- ZH -->
-    <div class="lang-zh">
-      <p class="subtitle">机制可解释性与多模态推理</p>
-      <div class="info-grid">
-        <div class="info-item">
-          <span class="info-label">大学</span>
-          <span class="info-value">昆山杜克大学 &amp; 杜克大学（双学位）&middot; 2027届</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">绩点</span>
-          <span class="info-value">3.82 / 4.0（杜克: 4.0 / 4.0）</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">学位</span>
-          <span class="info-value">数据科学学士（DKU）&amp; 数据科学学士（Duke）</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">海外学习</span>
-          <span class="info-value">2025年秋季 &middot; 杜克大学 &middot; 北卡罗来纳州达勒姆</span>
-        </div>
+    <aside class="hero-aside" aria-label="Education">
+      <span class="aside-marker" aria-hidden="true">HQ / 2027</span>
+      <div class="education-block"><span class="eyebrow"><span class="lang-en">Education</span><span class="lang-zh">教育背景</span></span>
+        <p class="institution"><span class="lang-en">Duke Kunshan<br> University</span><span class="lang-zh">昆山杜克大学</span></p>
+        <p class="degree"><span class="lang-en">B.S. in Data Science</span><span class="lang-zh">数据科学理学学士</span></p>
+        <p class="institution second-institution"><span class="lang-en">Duke University</span><span class="lang-zh">杜克大学</span></p>
+        <p class="degree"><span class="lang-en">B.A. in Data Science</span><span class="lang-zh">数据科学文学学士</span></p>
+        <div class="academic-facts"><div><span><span class="lang-en">GPA</span><span class="lang-zh">绩点</span></span><strong>3.82 / 4.0</strong></div><div><span><span class="lang-en">At Duke</span><span class="lang-zh">杜克期间</span></span><strong>4.0 / 4.0</strong></div></div>
+        <p class="study-note"><span class="lang-en">Fall 2025 at Duke<br>Durham, North Carolina</span><span class="lang-zh">2025年秋季 · 杜克大学<br>美国北卡罗来纳州达勒姆</span></p>
       </div>
-      <p class="contact-line">
-        <a href="mailto:hq38@duke.edu">hq38@duke.edu</a> &middot; +86 18862250806 &middot;
-        <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
-      </p>
-    </div>
+    </aside>
   </section>
 
-  <!-- Research Experience -->
-  <section id="research">
-    <div class="lang-en"><h2>Research Experience</h2><p class="research-intro">I study how internal representations support reasoning and how insights into these representations can make language and vision-language models more interpretable and reliable. My work connects <strong>mechanistic interpretability, in-context learning, model alignment, and multimodal reasoning</strong>.</p>
-<div class="card"><div class="card-header"><h3>In-Context Learning &amp; Language Model Alignment</h3><span class="card-date">Sep 2025 &ndash; Present</span></div><p class="card-meta">Student Research Assistant &middot; Advisor: Prof. Lawrence Carin, Duke University</p><ul><li>Evaluated modified Transformer architectures motivated by gradient-descent theories of in-context learning against vanilla baselines on ARC and MMLU, studying models at 353M and 1.3B parameters.</li><li>Observed comparable baseline performance and a substantial performance drop when ablating the ICL-related computation, examining how theoretical predictions carry over to language models.</li><li>Explored SAE features for detoxification in Gemma-2-2B and modified Transformers. Sensitivity to training data and hyperparameters, dead features, and inconsistent gains motivated a shift toward supervised fine-tuning and reinforcement learning for alignment.</li></ul><div class="tags"><span class="tag">In-Context Learning</span><span class="tag">Mechanistic Interpretability</span><span class="tag">SAE</span><span class="tag">Model Alignment</span></div></div>
-<div class="card"><div class="card-header"><h3>Visual Grounding in Vision-Language Models</h3><span class="card-date">Jun &ndash; Sep 2026</span></div><p class="card-meta">Student Research Assistant &middot; Advisor: Prof. Kaizhu Huang, Duke Kunshan University</p><ul><li>Analyzed failures in OCR and plane-geometry tasks, with a focus on small vision-language models and failure patterns also observed in larger models.</li><li>Built prototypes for recognizing whiteboard handwriting and converting it into structured files, addressing local deployment, error detection, and recovery.</li><li>Ongoing follow-up: adapting causal analyses of visual information pathways to test how image evidence and language priors shape answer tokens. Attention maps provide an initial view, but do not by themselves establish causal influence.</li></ul><div class="tags"><span class="tag">Vision-Language Models</span><span class="tag">Visual Grounding</span><span class="tag">OCR</span><span class="tag">Causal Analysis</span></div></div>
-<div class="card"><div class="card-header"><h3>Visual Representations &amp; Energy-Based Models</h3><span class="card-date">Dec 2025 &ndash; May 2026</span></div><p class="card-meta">Student Research Assistant &middot; Advisor: Prof. Kaizhu Huang, Duke Kunshan University</p><ul><li>Investigated whether channel expansion with SAEs could disentangle CNN features relevant to robust classification in energy-based models.</li><li>Under our training setup, CNN activations were already sparse; SAE encoding and decoding did not yield useful additional feature decomposition, and their performance cost outweighed robustness gains.</li><li>Observed limited background diversity in class-conditioned generation. Starting generation from an unrelated label partially alleviated this effect.</li></ul><div class="tags"><span class="tag">Energy-Based Models</span><span class="tag">CNN</span><span class="tag">Robustness</span><span class="tag">Representation Analysis</span></div></div>
-    </div>
-    <div class="lang-zh"><h2>研究经历</h2><p class="research-intro">我研究内部表征如何支持推理，以及如何利用对这些表征的理解，提高语言模型和视觉语言模型的可解释性与可靠性。我的研究连接<strong>机制可解释性、上下文学习、模型对齐与多模态推理</strong>。</p>
-<div class="card"><div class="card-header"><h3>上下文学习与语言模型对齐</h3><span class="card-date">2025年9月 &ndash; 至今</span></div><p class="card-meta">学生研究助理 &middot; 导师：Lawrence Carin 教授，杜克大学</p><ul><li>在 ARC、MMLU 等基准上，将基于上下文学习梯度下降理论的改进型 Transformer 与标准基线比较，研究规模包括 353M 和 1.3B 参数模型。</li><li>观察到改进架构与基线表现相近，而消融上下文学习相关计算会导致性能明显下降，据此考察理论预测在语言模型规模下的表现。</li><li>在 Gemma-2-2B 和改进型 Transformer 中探索 SAE 特征与去毒化干预。训练数据和超参数敏感性、失活特征及不稳定收益，促使研究转向监督微调和强化学习对齐。</li></ul><div class="tags"><span class="tag">上下文学习</span><span class="tag">机制可解释性</span><span class="tag">SAE</span><span class="tag">模型对齐</span></div></div>
-<div class="card"><div class="card-header"><h3>视觉语言模型的视觉依据与推理</h3><span class="card-date">2026年6月 &ndash; 9月</span></div><p class="card-meta">学生研究助理 &middot; 导师：Kaizhu Huang 教授，昆山杜克大学</p><ul><li>分析视觉语言模型在 OCR 与平面几何任务中的失败，重点关注小模型，以及大模型中同样出现的错误模式。</li><li>构建白板手写识别与结构化文件转换原型，处理本地部署、错误检测与恢复问题。</li><li>后续实验仍在进行：借鉴视觉信息路径的因果分析方法，检验图像证据与语言先验如何影响答案 token。注意力图用于初步观察，但本身不足以确定因果影响。</li></ul><div class="tags"><span class="tag">视觉语言模型</span><span class="tag">视觉依据</span><span class="tag">OCR</span><span class="tag">因果分析</span></div></div>
-<div class="card"><div class="card-header"><h3>视觉表征与能量模型</h3><span class="card-date">2025年12月 &ndash; 2026年5月</span></div><p class="card-meta">学生研究助理 &middot; 导师：Kaizhu Huang 教授，昆山杜克大学</p><ul><li>研究通过 SAE 扩展 CNN 通道维度，能否解耦与能量模型鲁棒分类相关的特征。</li><li>在本实验设置下，CNN 激活已经较为稀疏，SAE 编解码未带来有效的额外特征分解，其性能代价也超过了鲁棒性收益。</li><li>观察到按类别生成图像时背景多样性受限；从无关类别开始生成，可以部分缓解这一现象。</li></ul><div class="tags"><span class="tag">能量模型</span><span class="tag">CNN</span><span class="tag">鲁棒性</span><span class="tag">表征分析</span></div></div>
-    </div>
-  </section>
-
-  <!-- Selected Projects -->
-  <section id="projects">
-    <!-- EN -->
-    <div class="lang-en">
-      <h2>Selected Projects</h2>
-      <div class="project-grid">
-        <a href="project-icl.html" class="project-card"><span class="project-category">Research</span><h3>In-Context Learning in Modified Transformers</h3><p>Benchmarking and ablation studies of Transformer architectures motivated by gradient-descent theories of in-context learning.</p><span class="project-link">View details &rarr;</span></a>
-        <a href="project-vlm.html" class="project-card"><span class="project-category">Research</span><h3>Visual Grounding &amp; Multimodal Reasoning</h3><p>Investigating OCR and geometry failures, image evidence, and the influence of language priors in vision-language models.</p><span class="project-link">View details &rarr;</span></a>
-        <a href="project-energy.html" class="project-card"><span class="project-category">Research</span><h3>Visual Representations in Energy-Based Models</h3><p>Exploring SAE channel expansion for robust classification and background diversity in energy-based image generation.</p><span class="project-link">View details &rarr;</span></a>
-        <a href="project-sae-detox.html" class="project-card"><span class="project-category">Research</span><h3>SAE Detoxification &amp; Model Alignment</h3><p>Exploring feature-level interventions for safer language generation and the practical limits that motivated a shift toward fine-tuning and reinforcement learning.</p><span class="project-link">View details &rarr;</span></a>
-        <a href="project-stat401.html" class="project-card">
-          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">Course Project &middot; STAT 401</span>
-          <h3 style="margin-top: 8px;">Social Discourse Analytics Dashboard</h3>
-          <p>End-to-end NLP pipeline and interactive dashboard for cross-platform social media sentiment analysis.</p>
-          <span class="project-link">View details &rarr;</span>
-        </a>
-        <a href="project-mcm.html" class="project-card">
-          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">Competition &middot; MCM/ICM 2026</span>
-          <h3 style="margin-top: 8px;">NBA Franchise Valuation &amp; Strategy</h3>
-          <p>Gaussian Process Regression and Monte Carlo simulation for NBA team performance prediction and optimization.</p>
-          <span class="project-link">View details &rarr;</span>
-        </a>
-        <a href="project-mini-amazon.html" class="project-card">
-          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">Course Project &middot; CS 316</span>
-          <h3 style="margin-top: 8px;">Mini-Amazon E-Commerce Platform</h3>
-          <p>Full-stack web application with PostgreSQL backend, seller inventory management, and order fulfillment system.</p>
-          <span class="project-link">View details &rarr;</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- ZH -->
-    <div class="lang-zh">
-      <h2>精选项目</h2>
-      <div class="project-grid">
-        <a href="project-icl.html" class="project-card"><span class="project-category">研究</span><h3>改进型 Transformer 的上下文学习机制</h3><p>通过基准评估与消融实验，研究受上下文学习梯度下降理论启发的 Transformer 架构。</p><span class="project-link">查看详情 &rarr;</span></a>
-        <a href="project-vlm.html" class="project-card"><span class="project-category">研究</span><h3>视觉依据与多模态推理</h3><p>分析 OCR 与几何推理中的错误，研究视觉语言模型如何使用图像证据，以及语言先验的影响。</p><span class="project-link">查看详情 &rarr;</span></a>
-        <a href="project-energy.html" class="project-card"><span class="project-category">研究</span><h3>能量模型中的视觉表征</h3><p>探索 SAE 通道扩展与鲁棒分类的关系，以及能量模型图像生成中的背景多样性。</p><span class="project-link">查看详情 &rarr;</span></a>
-        <a href="project-sae-detox.html" class="project-card"><span class="project-category">研究</span><h3>SAE 去毒化与模型对齐</h3><p>探索更安全语言生成的特征级干预，以及促使研究转向微调与强化学习的实际局限。</p><span class="project-link">查看详情 &rarr;</span></a>
-        <a href="project-stat401.html" class="project-card">
-          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">课程项目 &middot; STAT 401</span>
-          <h3 style="margin-top: 8px;">社交媒体舆情分析仪表盘</h3>
-          <p>端到端NLP处理流程与交互式仪表盘，用于跨平台社交媒体情感分析。</p>
-          <span class="project-link">查看详情 &rarr;</span>
-        </a>
-        <a href="project-mcm.html" class="project-card">
-          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">竞赛 &middot; MCM/ICM 2026</span>
-          <h3 style="margin-top: 8px;">NBA球队估值与策略优化</h3>
-          <p>高斯过程回归与蒙特卡洛模拟，用于NBA球队表现预测与策略优化。</p>
-          <span class="project-link">查看详情 &rarr;</span>
-        </a>
-        <a href="project-mini-amazon.html" class="project-card">
-          <span style="font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.3px;">课程项目 &middot; CS 316</span>
-          <h3 style="margin-top: 8px;">Mini-Amazon 电商平台</h3>
-          <p>全栈Web应用，PostgreSQL后端，卖家库存管理与订单履约系统。</p>
-          <span class="project-link">查看详情 &rarr;</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Industry Experience -->
-  <section id="experience">
-    <div class="lang-en"><h2>Industry Experience</h2><div class="card"><div class="card-header"><h3>Cybex Goodbaby</h3><span class="card-date">Sep &ndash; Oct 2026</span></div><p class="card-meta">Internship</p><ul><li>Developed a production and logistics monitoring dashboard from limited, manually recorded factory data to forecast capacity and estimate container requirements, supporting coordination between brand and manufacturing subsidiaries.</li><li>Prototyped drafting-standard compliance checks for 2D engineering drawings using Copilot and explored AI-assisted tolerance analysis for assembly feasibility.</li><li>Evaluated vision models for tolerance calibration and fabric inspection, identifying limits in fine-grained visual assessment and the importance of controlled lighting and task-specific few-shot examples.</li></ul></div>
-<div class="card"><div class="card-header"><h3>Simplicity Robotics</h3><span class="card-date">Jul &ndash; Aug 2026</span></div><p class="card-meta">Internship</p><ul><li>Developed an LLM-driven hierarchical robotic agent that decomposed long-horizon shopping tasks into plans for shelf navigation, object pickup, and return delivery.</li><li>Implemented VLM-based failure detection using visual observations and verified execution history to assess progress and inform retry decisions.</li></ul></div></div>
-    <div class="lang-zh"><h2>实习经历</h2><div class="card"><div class="card-header"><h3>Cybex Goodbaby</h3><span class="card-date">2026年9月 &ndash; 10月</span></div><p class="card-meta">实习</p><ul><li>利用有限的工厂人工记录数据，开发生产与物流监控仪表盘，预测产能和集装箱需求，支持品牌与制造子公司之间的协调。</li><li>使用 Copilot 制作二维工程图制图规范检查原型，并探索用于评估装配可行性的 AI 辅助公差分析。</li><li>评估视觉模型在公差校准与面料质检中的能力，识别细粒度视觉判断的局限，以及受控光照和任务相关少样本示例的重要性。</li></ul></div>
-<div class="card"><div class="card-header"><h3>Simplicity Robotics</h3><span class="card-date">2026年7月 &ndash; 8月</span></div><p class="card-meta">实习</p><ul><li>开发由大语言模型驱动的分层机器人智能体，将长时程购物任务分解为货架导航、物品抓取和返回交付等步骤。</li><li>结合视觉观察与已核验的执行历史，实现基于视觉语言模型的失败检测，用于评估任务进度并支持重试决策。</li></ul></div></div>
-  </section>
-
-  <!-- Skills & Awards -->
-  <section id="skills">
-    <!-- EN -->
-    <div class="lang-en">
-      <h2>Skills & Awards</h2>
-      <div class="skill-group">
-        <h4>Languages</h4>
-        <p style="font-size: 14px; color: var(--text-secondary);">English (fluent) &middot; Mandarin (native) &middot; GRE 321</p>
-      </div>
-      <div class="skill-group">
-        <h4>Programming Languages &amp; Tools</h4>
-        <div class="tags">
-          <span class="tag">Python</span>
-          <span class="tag">Java</span>
-          <span class="tag">SQL</span>
-          <span class="tag">LaTeX</span>
-          <span class="tag">Git</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h4>Frameworks &amp; Libraries</h4>
-        <div class="tags">
-          <span class="tag">PyTorch</span>
-          <span class="tag">NumPy</span>
-          <span class="tag">Pandas</span>
-          <span class="tag">TransformerLens</span>
-          <span class="tag">SAELens</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h4>Awards</h4>
-        <div class="awards-grid">
-          <div class="award-item"><strong>Merit Scholarship</strong><span>Full tuition waiver for one academic year</span></div>
-          <div class="award-item"><strong>Dean's List</strong><span>Spring 2024</span></div>
-          <div class="award-item"><strong>Dean's List with Distinction</strong><span>Fall 2025 &amp; Spring 2026</span></div>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h4>Leadership &amp; Service</h4>
-        <ul style="list-style: none; padding: 0;">
-          <li style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 16px; position: relative;">
-            <span style="position: absolute; left: 0; color: var(--text-muted);">&ndash;</span>
-            <strong style="color: var(--text);">Pixel Club Secretary</strong>, 2024&ndash;2025 &ndash; Managed operations for a 50+ member tech community, organized workshops.
-          </li>
-          <li style="font-size: 14px; color: var(--text-secondary); padding-left: 16px; position: relative;">
-            <span style="position: absolute; left: 0; color: var(--text-muted);">&ndash;</span>
-            <strong style="color: var(--text);">Media Team Member</strong>, Sports Complex, 2023 Fall &ndash; 2025 Spring &ndash; Produced multimedia content for university athletic events.
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ZH -->
-    <div class="lang-zh">
-      <h2>技能与奖项</h2>
-      <div class="skill-group">
-        <h4>语言</h4>
-        <p style="font-size: 14px; color: var(--text-secondary);">英语（流利）&middot; 普通话（母语）&middot; GRE 321</p>
-      </div>
-      <div class="skill-group">
-        <h4>编程语言与工具</h4>
-        <div class="tags">
-          <span class="tag">Python</span>
-          <span class="tag">Java</span>
-          <span class="tag">SQL</span>
-          <span class="tag">LaTeX</span>
-          <span class="tag">Git</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h4>框架与库</h4>
-        <div class="tags">
-          <span class="tag">PyTorch</span>
-          <span class="tag">NumPy</span>
-          <span class="tag">Pandas</span>
-          <span class="tag">TransformerLens</span>
-          <span class="tag">SAELens</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h4>奖项</h4>
-        <div class="awards-grid">
-          <div class="award-item"><strong>优秀学生奖学金</strong><span>一学年全额学费减免</span></div>
-          <div class="award-item"><strong>院长名单</strong><span>2024年春季</span></div>
-          <div class="award-item"><strong>院长嘉许名单（优异）</strong><span>2025年秋季、2026年春季</span></div>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h4>领导力与服务</h4>
-        <ul style="list-style: none; padding: 0;">
-          <li style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 16px; position: relative;">
-            <span style="position: absolute; left: 0; color: var(--text-muted);">&ndash;</span>
-            <strong style="color: var(--text);">Pixel Club 秘书</strong>，2024&ndash;2025 &ndash; 管理50+成员的技术社团，组织工作坊。
-          </li>
-          <li style="font-size: 14px; color: var(--text-secondary); padding-left: 16px; position: relative;">
-            <span style="position: absolute; left: 0; color: var(--text-muted);">&ndash;</span>
-            <strong style="color: var(--text);">媒体团队成员</strong>，体育中心，2023秋 &ndash; 2025春 &ndash; 为大学体育赛事制作多媒体内容。
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <span class="lang-en">&copy; 2026 Hongyi Qian</span>
-    <span class="lang-zh">&copy; 2026 钱弘毅</span>
-    &middot; <a href="mailto:hq38@duke.edu">hq38@duke.edu</a> &middot;
-    <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
-  </footer>
-
-  <script>
-    // Language toggle with localStorage persistence
-    (function() {
-      var saved = localStorage.getItem('lang');
-      if (saved === 'zh') {
-        document.body.setAttribute('lang', 'zh');
-        updateNavText('zh');
-      } else {
-        document.body.setAttribute('lang', 'en');
-        updateNavText('en');
-      }
-    })();
-
-    function toggleLang() {
-      var current = document.body.getAttribute('lang');
-      var next = current === 'en' ? 'zh' : 'en';
-      document.body.setAttribute('lang', next);
-      localStorage.setItem('lang', next);
-      updateNavText(next);
-    }
-
-    function updateNavText(lang) {
-      var navMain = document.querySelector('.nav-main');
-      var navResearch = document.querySelector('.nav-research');
-      var navProjects = document.querySelector('.nav-projects');
-      var navSkills = document.querySelector('.nav-skills');
-      var navExperience = document.querySelector('.nav-experience');
-      document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
-      if (lang === 'zh') {
-        if (navMain) navMain.textContent = '主页';
-        if (navResearch) navResearch.textContent = '研究';
-        if (navProjects) navProjects.textContent = '项目';
-        if (navSkills) navSkills.textContent = '技能';
-        if (navExperience) navExperience.textContent = '实习';
-      } else {
-        if (navMain) navMain.textContent = 'Main';
-        if (navResearch) navResearch.textContent = 'Research';
-        if (navProjects) navProjects.textContent = 'Projects';
-        if (navSkills) navSkills.textContent = 'Skills';
-        if (navExperience) navExperience.textContent = 'Experience';
-      }
-    }
-  </script>
-
+  <section id="research" class="page-width content-section">
+    <div class="section-heading"><div><span class="eyebrow">01 / RESEARCH</span><h2 class="lang-en">Research</h2><h2 class="lang-zh">研究方向</h2></div><p class="lang-en section-note">Questions, experiments,<br>and what I learned.</p><p class="lang-zh section-note">从问题出发，<br>在实验中理解。</p></div>
+    <div class="research-list"><article class="research-entry">
+      <div class="entry-meta"><span class="entry-number">01</span><p class="lang-en entry-date">2025 — Present</p><p class="lang-zh entry-date">2025 — 至今</p></div>
+      <div class="entry-body"><h3 class="lang-en">In-context learning &amp; model alignment</h3><h3 class="lang-zh">上下文学习与模型对齐</h3><p class="lang-en entry-affiliation">Lawrence Carin · Duke University</p><p class="lang-zh entry-affiliation">Lawrence Carin 教授 · 杜克大学</p><p class="lang-en entry-description">I evaluate Transformer architectures inspired by gradient-descent theories of in-context learning, using ARC, MMLU, and ablation studies. My work on SAE-based detoxification examines the limits of feature-level interventions and has motivated a shift toward fine-tuning and reinforcement learning for alignment.</p><p class="lang-zh entry-description">通过 ARC、MMLU 与消融实验，我研究受上下文学习梯度下降理论启发的 Transformer 架构。同时，我探索 SAE 去毒化与特征级干预的局限，并将研究延伸至监督微调和强化学习对齐。</p><div class="entry-links"><a class="text-link" href="project-icl.html"><span class="lang-en">In-context learning</span><span class="lang-zh">上下文学习</span> <span aria-hidden="true">↗</span></a><a class="text-link" href="project-sae-detox.html"><span class="lang-en">SAE &amp; alignment</span><span class="lang-zh">SAE 与模型对齐</span> <span aria-hidden="true">↗</span></a></div></div>
+    </article><article class="research-entry">
+      <div class="entry-meta"><span class="entry-number">02</span><p class="lang-en entry-date">Jun — Sep 2026</p><p class="lang-zh entry-date">2026年6月 — 9月</p></div>
+      <div class="entry-body"><h3 class="lang-en">Visual grounding in vision-language models</h3><h3 class="lang-zh">视觉语言模型的视觉依据</h3><p class="lang-en entry-affiliation">Kaizhu Huang · Duke Kunshan University</p><p class="lang-zh entry-affiliation">Kaizhu Huang 教授 · 昆山杜克大学</p><p class="lang-en entry-description">I study OCR and geometry errors to understand how vision-language models use image evidence. Building on whiteboard recognition prototypes, my ongoing follow-up experiments examine how visual information and language priors shape generated answers.</p><p class="lang-zh entry-description">从 OCR 与几何任务中的错误出发，我研究视觉语言模型如何使用图像证据。在白板手写识别原型的基础上，后续实验正在检验视觉信息与语言先验如何共同影响模型的答案。</p><div class="entry-links"><a class="text-link" href="project-vlm.html"><span class="lang-en">Visual grounding</span><span class="lang-zh">视觉依据与多模态推理</span> <span aria-hidden="true">↗</span></a></div></div>
+    </article><article class="research-entry">
+      <div class="entry-meta"><span class="entry-number">03</span><p class="lang-en entry-date">Dec 2025 — May 2026</p><p class="lang-zh entry-date">2025年12月 — 2026年5月</p></div>
+      <div class="entry-body"><h3 class="lang-en">Visual representations &amp; energy-based models</h3><h3 class="lang-zh">视觉表征与能量模型</h3><p class="lang-en entry-affiliation">Kaizhu Huang · Duke Kunshan University</p><p class="lang-zh entry-affiliation">Kaizhu Huang 教授 · 昆山杜克大学</p><p class="lang-en entry-description">I investigated SAE channel expansion for robust CNN classification, finding that representation structure limited its usefulness under our training setup. I also explored generation initialization to partially improve background diversity in energy-based image generation.</p><p class="lang-zh entry-description">我研究通过 SAE 扩展 CNN 通道能否帮助鲁棒分类，并发现表征结构限制了该方法在本实验设置下的作用。此外，我探索生成初始化方法，以部分改善能量模型生成图像的背景多样性。</p><div class="entry-links"><a class="text-link" href="project-energy.html"><span class="lang-en">Energy-based models</span><span class="lang-zh">能量模型中的视觉表征</span> <span aria-hidden="true">↗</span></a></div></div>
+    </article></div></section><section id="experience" class="page-width content-section">
+  <div class="section-heading"><div><span class="eyebrow">02 / EXPERIENCE</span><h2 class="lang-en">Beyond the lab</h2><h2 class="lang-zh">研究之外</h2></div><p class="lang-en section-note">Applying models<br>to real systems.</p><p class="lang-zh section-note">将模型用于<br>真实场景。</p></div>
+  <article class="experience-entry"><div class="entry-meta"><p class="lang-en entry-date">Sep — Oct 2026</p><p class="lang-zh entry-date">2026年9月 — 10月</p><span class="eyebrow"><span class="lang-en">Internship</span><span class="lang-zh">实习</span></span></div>
+    <div class="entry-body"><h3>Cybex Goodbaby</h3><p class="lang-en entry-affiliation">Production, logistics &amp; visual inspection</p><p class="lang-zh entry-affiliation">生产、物流与视觉检测</p>
+      <p class="lang-en entry-description">Built a production and logistics dashboard from limited factory records to forecast capacity and container needs. Prototyped engineering-drawing checks and explored AI-assisted tolerance analysis, while evaluating vision models for fabric inspection and calibration.</p><p class="lang-zh entry-description">利用有限的工厂记录开发生产与物流仪表盘，预测产能与集装箱需求；制作工程图规范检查原型，探索 AI 辅助公差分析，并评估面料质检与校准中的视觉模型。</p></div>
+  </article>
+  <article class="experience-entry"><div class="entry-meta"><p class="lang-en entry-date">Jul — Aug 2026</p><p class="lang-zh entry-date">2026年7月 — 8月</p><span class="eyebrow"><span class="lang-en">Internship</span><span class="lang-zh">实习</span></span></div>
+    <div class="entry-body"><h3>Simplicity Robotics</h3><p class="lang-en entry-affiliation">Robotic planning &amp; failure detection</p><p class="lang-zh entry-affiliation">机器人规划与失败检测</p>
+      <p class="lang-en entry-description">Developed an LLM-driven hierarchical agent for long-horizon shopping tasks, from shelf navigation to object pickup and return delivery. Used visual observations and verified execution history for VLM-based failure detection and retry decisions.</p><p class="lang-zh entry-description">开发由大语言模型驱动的分层智能体，将长时程购物任务分解为货架导航、物品抓取与返回交付。结合视觉观察和已核验的执行历史，实现失败检测并支持重试决策。</p></div>
+  </article>
+</section>
+<section id="background" class="page-width content-section background-section">
+  <div class="section-heading"><div><span class="eyebrow">03 / BACKGROUND</span><h2 class="lang-en">A little more</h2><h2 class="lang-zh">更多关于我</h2></div></div>
+  <div class="background-grid">
+    <div><h3 class="small-heading"><span class="lang-en">Tools I work with</span><span class="lang-zh">技术与工具</span></h3><p class="tools-line">Python · PyTorch · NumPy · Pandas<br>TransformerLens · SAELens<br>Java · SQL · LaTeX · Git</p>
+      <h3 class="small-heading spaced-heading"><span class="lang-en">Languages</span><span class="lang-zh">语言</span></h3><p class="muted-copy"><span class="lang-en">English · Mandarin<br>GRE 321</span><span class="lang-zh">英语 · 普通话<br>GRE 321</span></p></div>
+    <div><h3 class="small-heading"><span class="lang-en">Honors</span><span class="lang-zh">奖项</span></h3><div class="honor-item"><strong><span class="lang-en">Merit Scholarship</span><span class="lang-zh">优秀学生奖学金</span></strong><p><span class="lang-en">Full tuition waiver for one academic year</span><span class="lang-zh">一学年全额学费减免</span></p></div><div class="honor-item"><strong><span class="lang-en">Dean’s List with Distinction</span><span class="lang-zh">院长嘉许名单（优异）</span></strong><p><span class="lang-en">Fall 2025 &amp; Spring 2026</span><span class="lang-zh">2025年秋季、2026年春季</span></p></div><div class="honor-item"><strong><span class="lang-en">Dean’s List</span><span class="lang-zh">院长名单</span></strong><p><span class="lang-en">Spring 2024</span><span class="lang-zh">2024年春季</span></p></div></div>
+    <div><h3 class="small-heading"><span class="lang-en">Community</span><span class="lang-zh">校园与社群</span></h3><div class="honor-item"><strong><span class="lang-en">Pixel Club Secretary</span><span class="lang-zh">Pixel Club 秘书</span></strong><p>2024 — 2025</p><p><span class="lang-en">Operations and workshops for a 50+ member tech community.</span><span class="lang-zh">参与管理 50 余名成员的技术社团，并组织工作坊。</span></p></div><div class="honor-item"><strong><span class="lang-en">Sports Complex Media Team</span><span class="lang-zh">体育中心媒体团队</span></strong><p>2023 — 2025</p><p><span class="lang-en">Multimedia coverage of university athletic events.</span><span class="lang-zh">为大学体育赛事制作多媒体内容。</span></p></div></div>
+  </div>
+</section>
+<section class="contact-section page-width"><span class="eyebrow"><span class="lang-en">Get in touch</span><span class="lang-zh">联系我</span></span><a class="email-large" href="mailto:hq38@duke.edu">hq38@duke.edu <span aria-hidden="true">↗</span></a></section>
+</main><footer class="site-footer"><div class="footer-inner">
+  <a class="footer-name" href="index.html"><span class="lang-en">Hongyi Qian</span><span class="lang-zh">钱弘毅</span></a>
+  <span class="footer-note"><span class="lang-en">Mechanistic interpretability &amp; multimodal reasoning</span><span class="lang-zh">机制可解释性与多模态推理</span></span>
+  <span class="copyright">&copy; 2026</span>
+</div></footer>
 </body>
 </html>

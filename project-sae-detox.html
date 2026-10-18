@@ -3,269 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f7f3">
   <title>SAE Detoxification &amp; Model Alignment | Hongyi Qian</title>
   <meta name="description" content="Exploring feature-level interventions for safer language generation and the practical limits that motivated a shift toward fine-tuning and reinforcement learning.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --text: #1a1a1a;
-      --text-secondary: #555;
-      --text-muted: #888;
-      --accent: #2563eb;
-      --border: #e5e5e5;
-      --bg: #ffffff;
-      --bg-secondary: #f8f9fa;
-      --tag-bg: #eef2ff;
-      --tag-text: #4f46e5;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .lang-en, .lang-zh { display: none; }
-    body[lang="en"] .lang-en { display: block; }
-    body[lang="zh"] .lang-zh { display: block; }
-
-    .lang-toggle {
-      font-size: 13px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .lang-toggle:hover { background: var(--bg-secondary); border-color: #ccc; }
-
-    nav {
-      position: sticky;
-      top: 0;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-    }
-
-    .nav-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-    }
-
-    .back-link {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: 6px;
-      transition: all 0.2s;
-    }
-
-    .back-link:hover { background: var(--bg-secondary); color: var(--text); text-decoration: none; }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-
-    .project-header { margin-bottom: 32px; }
-
-    .project-label {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    h1 {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 12px;
-    }
-
-    .project-meta {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-
-    .github-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--text);
-      color: var(--bg);
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: opacity 0.2s;
-    }
-
-    .github-btn:hover { opacity: 0.85; text-decoration: none; }
-
-    .github-btn svg { width: 16px; height: 16px; fill: currentColor; }
-
-    h2 {
-      font-size: 20px;
-      font-weight: 600;
-      margin: 32px 0 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    p {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 20px;
-    }
-
-    ul li {
-      position: relative;
-      padding-left: 18px;
-      margin-bottom: 10px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-
-    ul li::before {
-      content: "\2013";
-      position: absolute;
-      left: 0;
-      color: var(--text-muted);
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .tag {
-      font-size: 12px;
-      font-weight: 500;
-      padding: 4px 12px;
-      border-radius: 100px;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-    }
-
-    .highlight-box {
-      background: var(--bg-secondary);
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin: 20px 0;
-      border-left: 3px solid var(--accent);
-    }
-
-    .highlight-box p { margin: 0; font-size: 14px; }
-    .highlight-box strong { color: var(--text); }
-
-    footer {
-      text-align: center;
-      padding: 40px 24px;
-      border-top: 1px solid var(--border);
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 40px;
-    }
-
-    @media (max-width: 640px) {
-      h1 { font-size: 26px; }
-      .nav-container { padding: 0 16px; }
-    }
-  </style>
+  <link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
 </head>
-<body lang="en">
-
-  <nav>
-    <div class="nav-container">
-      <a href="index.html" class="back-link">&larr; <span class="lang-en">Back to Home</span><span class="lang-zh">返回主页</span></a>
-      <button class="lang-toggle" onclick="toggleLang()" title="Switch language">
-        <span class="lang-en">EN/中</span><span class="lang-zh">中/EN</span>
-      </button>
+<body lang="en" class="detail-page"><header class="site-header">
+  <nav class="nav-container" aria-label="Main navigation">
+    <a class="wordmark" href="index.html" aria-label="Hongyi Qian home">hq<span class="wordmark-dot">.</span></a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="index.html#main"><span class="lang-en">About</span><span class="lang-zh">关于</span></a>
+        <a href="index.html#research"><span class="lang-en">Research</span><span class="lang-zh">研究</span></a>
+        <a href="index.html#experience"><span class="lang-en">Experience</span><span class="lang-zh">经历</span></a>
+        <a href="projects.html"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a>
+      </div>
+      <button class="lang-toggle" type="button" aria-label="Switch to Chinese"><span class="lang-en">中文</span><span class="lang-zh">EN</span></button>
     </div>
   </nav>
-
-  <main class="container">
-    <div class="lang-en"><div class="project-header"><div class="project-label">Research · Duke University</div><h1>SAE Detoxification &amp; Model Alignment</h1><div class="project-meta">Sep 2025 – Present · Advisor: Prof. Lawrence Carin, Duke University</div>        <a href="https://github.com/SAE-Interpretability/SAE-Detoxification" target="_blank" class="github-btn">
-          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+</header><main class="container project-detail page-width">
+    <a href="projects.html" class="back-link">← <span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a><div class="lang-en">
+<div class="project-header">
+<div class="project-label">Research · Duke University</div>
+<h1>SAE Detoxification &amp; Model Alignment</h1>
+<div class="project-meta">Sep 2025 – Present · Advisor: Prof. Lawrence Carin, Duke University</div>        <a href="https://github.com/SAE-Interpretability/SAE-Detoxification" target="_blank" class="github-btn" rel="noopener noreferrer">
+          <svg viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
           View on GitHub
-        </a></div>
-<h2>Research Question</h2><p>Can token-level hidden representations be decomposed into interpretable features and used for targeted interventions on harmful language generation?</p>
-<h2>My Work</h2><ul><li>Explored SAEs to interpret activation patterns in Gemma-2-2B and modified Transformer architectures.</li><li>Identified features associated with harmful generations and intervened on them to steer the models toward less harmful outputs.</li><li>Examined whether the learned features were sufficiently stable and useful for reliable intervention.</li></ul>
-<h2>Findings &amp; Limitations</h2><p>The approach was highly sensitive to hyperparameters and to the activation data used for training, and dead features were common. Training on a sufficiently representative activation distribution was computationally expensive. Sparsity alone did not guarantee interpretable or useful features, and SAE-based detoxification did not consistently outperform alternative methods.</p>
-<h2>Subsequent Direction</h2><p>After discussing these limitations, we shifted our focus to supervised fine-tuning and reinforcement learning to align model outputs with our intended principles.</p>
-<h2>Methods &amp; Topics</h2><div class="tags"><span class="tag">Gemma-2-2B</span><span class="tag">Sparse Autoencoders</span><span class="tag">Mechanistic Interpretability</span><span class="tag">LLM Safety</span><span class="tag">Model Alignment</span></div>
+        </a>
+</div>
+<h2>Research Question</h2>
+<p>Can token-level hidden representations be decomposed into interpretable features and used for targeted interventions on harmful language generation?</p>
+<h2>My Work</h2>
+<ul>
+<li>Explored SAEs to interpret activation patterns in Gemma-2-2B and modified Transformer architectures.</li>
+<li>Identified features associated with harmful generations and intervened on them to steer the models toward less harmful outputs.</li>
+<li>Examined whether the learned features were sufficiently stable and useful for reliable intervention.</li>
+</ul>
+<h2>Findings &amp; Limitations</h2>
+<p>The approach was highly sensitive to hyperparameters and to the activation data used for training, and dead features were common. Training on a sufficiently representative activation distribution was computationally expensive. Sparsity alone did not guarantee interpretable or useful features, and SAE-based detoxification did not consistently outperform alternative methods.</p>
+<h2>Subsequent Direction</h2>
+<p>After discussing these limitations, we shifted our focus to supervised fine-tuning and reinforcement learning to align model outputs with our intended principles.</p>
+<h2>Methods &amp; Topics</h2>
+<div class="tags">
+<span class="tag">Gemma-2-2B</span><span class="tag">Sparse Autoencoders</span><span class="tag">Mechanistic Interpretability</span><span class="tag">LLM Safety</span><span class="tag">Model Alignment</span>
+</div>
     </div>
-    <div class="lang-zh"><div class="project-header"><div class="project-label">研究项目 · 杜克大学</div><h1>SAE 去毒化与模型对齐</h1><div class="project-meta">2025年9月 – 至今 · 导师：Lawrence Carin 教授，杜克大学</div>        <a href="https://github.com/SAE-Interpretability/SAE-Detoxification" target="_blank" class="github-btn">
-          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+    <div class="lang-zh">
+<div class="project-header">
+<div class="project-label">研究项目 · 杜克大学</div>
+<h1>SAE 去毒化与模型对齐</h1>
+<div class="project-meta">2025年9月 – 至今 · 导师：Lawrence Carin 教授，杜克大学</div>        <a href="https://github.com/SAE-Interpretability/SAE-Detoxification" target="_blank" class="github-btn" rel="noopener noreferrer">
+          <svg viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
           在 GitHub 上查看
-        </a></div>
-<h2>研究问题</h2><p>能否将 token 级隐藏表征分解为可解释特征，并利用这些特征对有害文本生成进行定向干预？</p>
-<h2>我的工作</h2><ul><li>使用 SAE 探索 Gemma-2-2B 与改进型 Transformer 的激活模式。</li><li>识别与有害生成相关的特征，并通过干预这些特征，引导模型减少有害输出。</li><li>考察学得的特征是否足够稳定，以及是否能够支持可靠干预。</li></ul>
-<h2>发现与局限</h2><p>该方法对超参数和训练激活数据高度敏感，失活特征也较常见。在足够有代表性的激活分布上训练 SAE，计算成本较高。稀疏目标本身不保证特征可解释或适合干预，基于 SAE 的去毒化也没有持续优于其他方法。</p>
-<h2>后续方向</h2><p>在讨论这些局限后，我们将重点转向监督微调和强化学习，以使模型输出符合预期原则。</p>
-<h2>方法与主题</h2><div class="tags"><span class="tag">Gemma-2-2B</span><span class="tag">Sparse Autoencoders</span><span class="tag">Mechanistic Interpretability</span><span class="tag">LLM Safety</span><span class="tag">Model Alignment</span></div>
+        </a>
+</div>
+<h2>研究问题</h2>
+<p>能否将 token 级隐藏表征分解为可解释特征，并利用这些特征对有害文本生成进行定向干预？</p>
+<h2>我的工作</h2>
+<ul>
+<li>使用 SAE 探索 Gemma-2-2B 与改进型 Transformer 的激活模式。</li>
+<li>识别与有害生成相关的特征，并通过干预这些特征，引导模型减少有害输出。</li>
+<li>考察学得的特征是否足够稳定，以及是否能够支持可靠干预。</li>
+</ul>
+<h2>发现与局限</h2>
+<p>该方法对超参数和训练激活数据高度敏感，失活特征也较常见。在足够有代表性的激活分布上训练 SAE，计算成本较高。稀疏目标本身不保证特征可解释或适合干预，基于 SAE 的去毒化也没有持续优于其他方法。</p>
+<h2>后续方向</h2>
+<p>在讨论这些局限后，我们将重点转向监督微调和强化学习，以使模型输出符合预期原则。</p>
+<h2>方法与主题</h2>
+<div class="tags">
+<span class="tag">Gemma-2-2B</span><span class="tag">Sparse Autoencoders</span><span class="tag">Mechanistic Interpretability</span><span class="tag">LLM Safety</span><span class="tag">Model Alignment</span>
+</div>
     </div>
   </main>
 
-  <footer>
-    <span class="lang-en">&copy; 2026 Hongyi Qian</span>
-    <span class="lang-zh">&copy; 2026 钱弘毅</span>
-    &middot; <a href="index.html">Home / 主页</a> &middot;
-    <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
-  </footer>
 
-  <script>
-    (function() {
-      var saved = localStorage.getItem('lang');
-      document.body.setAttribute('lang', saved === 'zh' ? 'zh' : 'en');
-      document.documentElement.setAttribute('lang', saved === 'zh' ? 'zh-CN' : 'en');
-    })();
-    function toggleLang() {
-      var current = document.body.getAttribute('lang');
-      var next = current === 'en' ? 'zh' : 'en';
-      document.body.setAttribute('lang', next);
-      document.documentElement.setAttribute('lang', next === 'zh' ? 'zh-CN' : 'en');
-      localStorage.setItem('lang', next);
-    }
-  </script>
-
+<footer class="site-footer"><div class="footer-inner">
+  <a class="footer-name" href="index.html"><span class="lang-en">Hongyi Qian</span><span class="lang-zh">钱弘毅</span></a>
+  <span class="footer-note"><span class="lang-en">Mechanistic interpretability &amp; multimodal reasoning</span><span class="lang-zh">机制可解释性与多模态推理</span></span>
+  <span class="copyright">&copy; 2026</span>
+</div></footer>
 </body>
 </html>

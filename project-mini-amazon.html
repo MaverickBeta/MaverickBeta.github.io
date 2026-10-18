@@ -3,74 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f7f3">
   <title>Mini-Amazon | Hongyi Qian</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root { --text: #1a1a1a; --text-secondary: #555; --text-muted: #888; --accent: #2563eb; --border: #e5e5e5; --bg: #ffffff; --bg-secondary: #f8f9fa; --tag-bg: #eef2ff; --tag-text: #4f46e5; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
-    a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
-    .lang-en, .lang-zh { display: none; } body[lang="en"] .lang-en { display: block; } body[lang="zh"] .lang-zh { display: block; }
-    .lang-toggle { font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; }
-    .lang-toggle:hover { background: var(--bg-secondary); }
-    nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); z-index: 100; }
-    .nav-container { max-width: 900px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
-    .back-link { font-size: 14px; font-weight: 500; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; }
-    .back-link:hover { background: var(--bg-secondary); color: var(--text); text-decoration: none; }
-    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
-    .project-header { margin-bottom: 32px; }
-    .project-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; color: var(--accent); margin-bottom: 8px; }
-    h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; }
-    .project-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
-    .github-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--text); color: var(--bg); padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: opacity 0.2s; }
-    .github-btn:hover { opacity: 0.85; text-decoration: none; }
-    .github-btn svg { width: 16px; height: 16px; fill: currentColor; }
-    h2 { font-size: 20px; font-weight: 600; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-    p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
-    ul { list-style: none; padding: 0; margin-bottom: 20px; }
-    ul li { position: relative; padding-left: 18px; margin-bottom: 10px; font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
-    ul li::before { content: "\2013"; position: absolute; left: 0; color: var(--text-muted); }
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-    .tag { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 100px; background: var(--tag-bg); color: var(--tag-text); }
-    .highlight-box { background: var(--bg-secondary); border-radius: 10px; padding: 20px 24px; margin: 20px 0; border-left: 3px solid var(--accent); }
-    .highlight-box p { margin: 0; font-size: 14px; } .highlight-box strong { color: var(--text); }
-    .feature-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
-    .feature-table th { text-align: left; padding: 10px 12px; background: var(--bg-secondary); color: var(--text); font-weight: 600; border-bottom: 1px solid var(--border); }
-    .feature-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
-    .status-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
-    .status-full { background: #ecfdf5; color: #059669; }
-    .team-roles { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin: 12px 0; }
-    .team-role { background: var(--bg-secondary); border-radius: 8px; padding: 12px 16px; }
-    .team-role strong { font-size: 13px; color: var(--text); } .team-role span { font-size: 12px; color: var(--text-muted); }
-    footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); margin-top: 40px; }
-    @media (max-width: 640px) { h1 { font-size: 26px; } .nav-container { padding: 0 16px; } .feature-table { font-size: 12px; } .feature-table th, .feature-table td { padding: 8px; } }
-    @media (max-width: 400px) {
-      .feature-table { table-layout: fixed; }
-      .feature-table th, .feature-table td, code { overflow-wrap: anywhere; }
-    }
-  </style>
+  <meta name="description" content="A project by Hongyi Qian.">
+  <link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
 </head>
-<body lang="en">
-
-  <nav>
-    <div class="nav-container">
-      <a href="index.html" class="back-link">&larr; <span class="lang-en">Back to Home</span><span class="lang-zh">返回主页</span></a>
-      <button class="lang-toggle" onclick="toggleLang()" title="Switch language"><span class="lang-en">EN/中</span><span class="lang-zh">中/EN</span></button>
+<body lang="en" class="detail-page"><header class="site-header">
+  <nav class="nav-container" aria-label="Main navigation">
+    <a class="wordmark" href="index.html" aria-label="Hongyi Qian home">hq<span class="wordmark-dot">.</span></a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="index.html#main"><span class="lang-en">About</span><span class="lang-zh">关于</span></a>
+        <a href="index.html#research"><span class="lang-en">Research</span><span class="lang-zh">研究</span></a>
+        <a href="index.html#experience"><span class="lang-en">Experience</span><span class="lang-zh">经历</span></a>
+        <a href="projects.html"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a>
+      </div>
+      <button class="lang-toggle" type="button" aria-label="Switch to Chinese"><span class="lang-en">中文</span><span class="lang-zh">EN</span></button>
     </div>
   </nav>
+</header><main class="container project-detail page-width">
 
-  <div class="container">
-
-    <!-- EN -->
+    <a href="projects.html" class="back-link">← <span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a><!-- EN -->
     <div class="lang-en">
       <div class="project-header">
-        <div class="project-label">Course Project &middot; CS 316 (Database Systems) &middot; Duke Kunshan University</div>
+        <div class="project-label">Course Project · CS 316 (Database Systems) · Duke Kunshan University</div>
         <h1>Mini-Amazon E-Commerce Platform</h1>
-        <div class="project-meta">Full-Stack Web Application with PostgreSQL &middot; Team of 7 &middot; 329 Git Commits</div>
-        <a href="https://github.com/MaverickBeta/CS316-Mini-Amazon" target="_blank" class="github-btn">
-          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <div class="project-meta">Full-Stack Web Application with PostgreSQL · Team of 7 · 329 Git Commits</div>
+        <a href="https://github.com/MaverickBeta/CS316-Mini-Amazon" target="_blank" class="github-btn" rel="noopener noreferrer">
+          <svg viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
           View on GitHub
         </a>
       </div>
@@ -81,11 +44,21 @@
       </div>
       <h2>Team Structure</h2>
       <div class="team-roles">
-        <div class="team-role"><strong>Hongyi Qian</strong><br><span>Sellers Guru + Team Lead</span></div>
-        <div class="team-role"><strong>Member 2</strong><br><span>Users Guru</span></div>
-        <div class="team-role"><strong>Member 3</strong><br><span>Products Guru</span></div>
-        <div class="team-role"><strong>Member 4</strong><br><span>Carts Guru</span></div>
-        <div class="team-role"><strong>Member 5</strong><br><span>Social Guru</span></div>
+        <div class="team-role">
+<strong>Hongyi Qian</strong><br><span>Sellers Guru + Team Lead</span>
+</div>
+        <div class="team-role">
+<strong>Member 2</strong><br><span>Users Guru</span>
+</div>
+        <div class="team-role">
+<strong>Member 3</strong><br><span>Products Guru</span>
+</div>
+        <div class="team-role">
+<strong>Member 4</strong><br><span>Carts Guru</span>
+</div>
+        <div class="team-role">
+<strong>Member 5</strong><br><span>Social Guru</span>
+</div>
       </div>
       <h2>My Contributions: Sellers Module</h2>
       <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Seller Dashboard</h3>
@@ -108,34 +81,90 @@
       </ul>
       <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Database Schema (Sellers Domain)</h3>
       <ul>
-        <li><strong>Sellers(uid)</strong> &mdash; identifies users registered as sellers, with cascading FK to Users.</li>
-        <li><strong>Products(pid, name, price, available)</strong> &mdash; stores product listings with unique name constraints.</li>
-        <li><strong>Inventory(sid, pid, quantity, price)</strong> &mdash; composite key (sid, pid) links sellers with products; maintains per-seller pricing and stock integrity.</li>
+        <li>
+<strong>Sellers(uid)</strong> — identifies users registered as sellers, with cascading FK to Users.</li>
+        <li>
+<strong>Products(pid, name, price, available)</strong> — stores product listings with unique name constraints.</li>
+        <li>
+<strong>Inventory(sid, pid, quantity, price)</strong> — composite key (sid, pid) links sellers with products; maintains per-seller pricing and stock integrity.</li>
         <li>Used <strong>CHECK constraints</strong> on price and quantity columns to prevent negative values.</li>
       </ul>
       <h2>Team Leadership &amp; Project Coordination</h2>
       <ul>
-        <li><strong>Cross-module integration:</strong> Coordinated the integration of all five functional domains (Users, Products, Carts, Sellers, Social) into a seamless user experience across the Flask application.</li>
-        <li><strong>Milestone management:</strong> Led the team through four milestones from initial database design to final demo, ensuring all deadlines were met.</li>
-        <li><strong>Database design collaboration:</strong> Participated in the overall database schema design, contributing the Sellers module tables and establishing FK relationships with other modules' schemas.</li>
-        <li><strong>Code review &amp; quality:</strong> Reviewed teammates' pull requests to ensure SQL injection prevention via parameterized queries and consistent coding style across the codebase.</li>
-        <li><strong>Frontend integration:</strong> Used <strong>vibe coding</strong> to design and iterate on the seller-facing frontend templates (dashboard, add/edit forms) for clean and intuitive UI.</li>
+        <li>
+<strong>Cross-module integration:</strong> Coordinated the integration of all five functional domains (Users, Products, Carts, Sellers, Social) into a seamless user experience across the Flask application.</li>
+        <li>
+<strong>Milestone management:</strong> Led the team through four milestones from initial database design to final demo, ensuring all deadlines were met.</li>
+        <li>
+<strong>Database design collaboration:</strong> Participated in the overall database schema design, contributing the Sellers module tables and establishing FK relationships with other modules' schemas.</li>
+        <li>
+<strong>Code review &amp; quality:</strong> Reviewed teammates' pull requests to ensure SQL injection prevention via parameterized queries and consistent coding style across the codebase.</li>
+        <li>
+<strong>Frontend integration:</strong> Used <strong>vibe coding</strong> to design and iterate on the seller-facing frontend templates (dashboard, add/edit forms) for clean and intuitive UI.</li>
       </ul>
       <h2>Full Feature List</h2>
       <table class="feature-table">
-        <thead><tr><th>Feature</th><th>Status</th><th>Notes</th></tr></thead>
+        <thead><tr>
+<th>Feature</th>
+<th>Status</th>
+<th>Notes</th>
+</tr></thead>
         <tbody>
-          <tr><td>User registration/login/logout with password hashing</td><td><span class="status-badge status-full">Functional</span></td><td>Unique email, SQL injection safe</td></tr>
-          <tr><td>Profile edit &amp; balance management</td><td><span class="status-badge status-full">Functional</span></td><td>Top-up, withdraw, password reset</td></tr>
-          <tr><td>Purchase history with filters</td><td><span class="status-badge status-full">Functional</span></td><td>Status, tag, seller, search filters</td></tr>
-          <tr><td>Product search, filter, sort, pagination</td><td><span class="status-badge status-full">Functional</span></td><td>Category, keyword, price, availability</td></tr>
-          <tr><td>Product detail with seller listings &amp; reviews</td><td><span class="status-badge status-full">Functional</span></td><td>Multi-seller price comparison</td></tr>
-          <tr><td>Cart, saved-for-later, coupon management</td><td><span class="status-badge status-full">Functional</span></td><td>Per-line coupon preview</td></tr>
-          <tr><td>Checkout with atomic balance &amp; inventory update</td><td><span class="status-badge status-full">Functional</span></td><td>Address validation, prorated coupons</td></tr>
-          <tr><td><strong>Seller dashboard &amp; inventory management</strong></td><td><span class="status-badge status-full">Functional</span></td><td>Add, edit, delete listings; sales analytics</td></tr>
-          <tr><td><strong>Seller order fulfillment</strong></td><td><span class="status-badge status-full">Functional</span></td><td>Fulfill/cancel line items; buyer stats</td></tr>
-          <tr><td>Product &amp; seller feedback system</td><td><span class="status-badge status-full">Functional</span></td><td>One review per user; purchase-gated</td></tr>
-          <tr><td>Buyer-seller messaging</td><td><span class="status-badge status-full">Functional</span></td><td>Inbox, threaded conversations</td></tr>
+          <tr>
+<td>User registration/login/logout with password hashing</td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>Unique email, SQL injection safe</td>
+</tr>
+          <tr>
+<td>Profile edit &amp; balance management</td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>Top-up, withdraw, password reset</td>
+</tr>
+          <tr>
+<td>Purchase history with filters</td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>Status, tag, seller, search filters</td>
+</tr>
+          <tr>
+<td>Product search, filter, sort, pagination</td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>Category, keyword, price, availability</td>
+</tr>
+          <tr>
+<td>Product detail with seller listings &amp; reviews</td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>Multi-seller price comparison</td>
+</tr>
+          <tr>
+<td>Cart, saved-for-later, coupon management</td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>Per-line coupon preview</td>
+</tr>
+          <tr>
+<td>Checkout with atomic balance &amp; inventory update</td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>Address validation, prorated coupons</td>
+</tr>
+          <tr>
+<td><strong>Seller dashboard &amp; inventory management</strong></td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>Add, edit, delete listings; sales analytics</td>
+</tr>
+          <tr>
+<td><strong>Seller order fulfillment</strong></td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>Fulfill/cancel line items; buyer stats</td>
+</tr>
+          <tr>
+<td>Product &amp; seller feedback system</td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>One review per user; purchase-gated</td>
+</tr>
+          <tr>
+<td>Buyer-seller messaging</td>
+<td><span class="status-badge status-full">Functional</span></td>
+<td>Inbox, threaded conversations</td>
+</tr>
         </tbody>
       </table>
       <h2>Technologies</h2>
@@ -149,11 +178,11 @@
     <!-- ZH -->
     <div class="lang-zh">
       <div class="project-header">
-        <div class="project-label">课程项目 &middot; CS 316（数据库系统）&middot; 昆山杜克大学</div>
+        <div class="project-label">课程项目 · CS 316（数据库系统）· 昆山杜克大学</div>
         <h1>Mini-Amazon 电商平台</h1>
-        <div class="project-meta">全栈Web应用 &middot; PostgreSQL后端 &middot; 7人团队 &middot; 329次Git提交</div>
-        <a href="https://github.com/MaverickBeta/CS316-Mini-Amazon" target="_blank" class="github-btn">
-          <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <div class="project-meta">全栈Web应用 · PostgreSQL后端 · 7人团队 · 329次Git提交</div>
+        <a href="https://github.com/MaverickBeta/CS316-Mini-Amazon" target="_blank" class="github-btn" rel="noopener noreferrer">
+          <svg viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
           在 GitHub 上查看
         </a>
       </div>
@@ -164,11 +193,21 @@
       </div>
       <h2>团队结构</h2>
       <div class="team-roles">
-        <div class="team-role"><strong>钱弘毅</strong><br><span>Sellers Guru + 团队负责人</span></div>
-        <div class="team-role"><strong>成员2</strong><br><span>Users Guru</span></div>
-        <div class="team-role"><strong>成员3</strong><br><span>Products Guru</span></div>
-        <div class="team-role"><strong>成员4</strong><br><span>Carts Guru</span></div>
-        <div class="team-role"><strong>成员5</strong><br><span>Social Guru</span></div>
+        <div class="team-role">
+<strong>钱弘毅</strong><br><span>Sellers Guru + 团队负责人</span>
+</div>
+        <div class="team-role">
+<strong>成员2</strong><br><span>Users Guru</span>
+</div>
+        <div class="team-role">
+<strong>成员3</strong><br><span>Products Guru</span>
+</div>
+        <div class="team-role">
+<strong>成员4</strong><br><span>Carts Guru</span>
+</div>
+        <div class="team-role">
+<strong>成员5</strong><br><span>Social Guru</span>
+</div>
       </div>
       <h2>我的贡献：卖家模块</h2>
       <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">卖家仪表盘</h3>
@@ -191,34 +230,90 @@
       </ul>
       <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">数据库设计（卖家域）</h3>
       <ul>
-        <li><strong>Sellers(uid)</strong> &mdash; 标识注册为卖家的用户，级联外键关联Users表。</li>
-        <li><strong>Products(pid, name, price, available)</strong> &mdash; 存储商品列表，含唯一名称约束。</li>
-        <li><strong>Inventory(sid, pid, quantity, price)</strong> &mdash; 复合主键(sid, pid)关联卖家与商品；维护每个卖家的定价和库存完整性。</li>
+        <li>
+<strong>Sellers(uid)</strong> — 标识注册为卖家的用户，级联外键关联Users表。</li>
+        <li>
+<strong>Products(pid, name, price, available)</strong> — 存储商品列表，含唯一名称约束。</li>
+        <li>
+<strong>Inventory(sid, pid, quantity, price)</strong> — 复合主键(sid, pid)关联卖家与商品；维护每个卖家的定价和库存完整性。</li>
         <li>在price和quantity列上使用<strong>CHECK约束</strong>防止负值。</li>
       </ul>
       <h2>团队领导与项目协调</h2>
       <ul>
-        <li><strong>跨模块集成：</strong>协调五个功能域（Users, Products, Carts, Sellers, Social）在Flask应用中的集成，打造无缝用户体验。</li>
-        <li><strong>里程碑管理：</strong>带领团队完成从初始数据库设计到最终演示的四个里程碑，确保所有截止日期按时完成。</li>
-        <li><strong>数据库设计协作：</strong>参与整体数据库架构设计，贡献卖家模块的表结构，并与其他模块建立外键关系。</li>
-        <li><strong>代码审查与质量：</strong>审查队友的pull request，确保通过参数化查询防止SQL注入，保持代码风格一致。</li>
-        <li><strong>前端集成：</strong>使用<strong>vibe coding</strong>设计和迭代卖家端前端模板（仪表盘、添加/编辑表单），打造简洁直观的用户界面。</li>
+        <li>
+<strong>跨模块集成：</strong>协调五个功能域（Users, Products, Carts, Sellers, Social）在Flask应用中的集成，打造无缝用户体验。</li>
+        <li>
+<strong>里程碑管理：</strong>带领团队完成从初始数据库设计到最终演示的四个里程碑，确保所有截止日期按时完成。</li>
+        <li>
+<strong>数据库设计协作：</strong>参与整体数据库架构设计，贡献卖家模块的表结构，并与其他模块建立外键关系。</li>
+        <li>
+<strong>代码审查与质量：</strong>审查队友的pull request，确保通过参数化查询防止SQL注入，保持代码风格一致。</li>
+        <li>
+<strong>前端集成：</strong>使用<strong>vibe coding</strong>设计和迭代卖家端前端模板（仪表盘、添加/编辑表单），打造简洁直观的用户界面。</li>
       </ul>
       <h2>完整功能列表</h2>
       <table class="feature-table">
-        <thead><tr><th>功能</th><th>状态</th><th>备注</th></tr></thead>
+        <thead><tr>
+<th>功能</th>
+<th>状态</th>
+<th>备注</th>
+</tr></thead>
         <tbody>
-          <tr><td>用户注册/登录/登出（密码哈希）</td><td><span class="status-badge status-full">已完成</span></td><td>唯一邮箱，防SQL注入</td></tr>
-          <tr><td>资料编辑与余额管理</td><td><span class="status-badge status-full">已完成</span></td><td>充值、提现、密码重置</td></tr>
-          <tr><td>购买历史（带筛选）</td><td><span class="status-badge status-full">已完成</span></td><td>状态、标签、卖家、搜索筛选</td></tr>
-          <tr><td>商品搜索、筛选、排序、分页</td><td><span class="status-badge status-full">已完成</span></td><td>分类、关键词、价格、 availability</td></tr>
-          <tr><td>商品详情（含卖家列表与评价）</td><td><span class="status-badge status-full">已完成</span></td><td>多卖家价格比较</td></tr>
-          <tr><td>购物车、稍后购买、优惠券管理</td><td><span class="status-badge status-full">已完成</span></td><td>逐行优惠券预览</td></tr>
-          <tr><td>结账（原子化余额与库存更新）</td><td><span class="status-badge status-full">已完成</span></td><td>地址验证、按比例优惠券</td></tr>
-          <tr><td><strong>卖家仪表盘与库存管理</strong></td><td><span class="status-badge status-full">已完成</span></td><td>添加、编辑、删除商品；销售分析</td></tr>
-          <tr><td><strong>卖家订单履约</strong></td><td><span class="status-badge status-full">已完成</span></td><td>履约/取消订单项；买家统计</td></tr>
-          <tr><td>商品与卖家评价系统</td><td><span class="status-badge status-full">已完成</span></td><td>每个用户一条评价；购买后评价</td></tr>
-          <tr><td>买家-卖家消息系统</td><td><span class="status-badge status-full">已完成</span></td><td>收件箱、 threaded 对话</td></tr>
+          <tr>
+<td>用户注册/登录/登出（密码哈希）</td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>唯一邮箱，防SQL注入</td>
+</tr>
+          <tr>
+<td>资料编辑与余额管理</td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>充值、提现、密码重置</td>
+</tr>
+          <tr>
+<td>购买历史（带筛选）</td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>状态、标签、卖家、搜索筛选</td>
+</tr>
+          <tr>
+<td>商品搜索、筛选、排序、分页</td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>分类、关键词、价格、 availability</td>
+</tr>
+          <tr>
+<td>商品详情（含卖家列表与评价）</td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>多卖家价格比较</td>
+</tr>
+          <tr>
+<td>购物车、稍后购买、优惠券管理</td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>逐行优惠券预览</td>
+</tr>
+          <tr>
+<td>结账（原子化余额与库存更新）</td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>地址验证、按比例优惠券</td>
+</tr>
+          <tr>
+<td><strong>卖家仪表盘与库存管理</strong></td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>添加、编辑、删除商品；销售分析</td>
+</tr>
+          <tr>
+<td><strong>卖家订单履约</strong></td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>履约/取消订单项；买家统计</td>
+</tr>
+          <tr>
+<td>商品与卖家评价系统</td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>每个用户一条评价；购买后评价</td>
+</tr>
+          <tr>
+<td>买家-卖家消息系统</td>
+<td><span class="status-badge status-full">已完成</span></td>
+<td>收件箱、 threaded 对话</td>
+</tr>
         </tbody>
       </table>
       <h2>技术栈</h2>
@@ -229,17 +324,13 @@
       </div>
     </div>
 
-  </div>
+  </main>
 
-  <footer>
-    <span class="lang-en">&copy; 2026 Hongyi Qian</span><span class="lang-zh">&copy; 2026 钱弘毅</span>
-    &middot; <a href="index.html">Home / 主页</a> &middot; <a href="https://github.com/MaverickBeta" target="_blank">GitHub</a>
-  </footer>
 
-  <script>
-    (function() { var saved = localStorage.getItem('lang'); document.body.setAttribute('lang', saved === 'zh' ? 'zh' : 'en'); })();
-    function toggleLang() { var current = document.body.getAttribute('lang'); var next = current === 'en' ? 'zh' : 'en'; document.body.setAttribute('lang', next); localStorage.setItem('lang', next); }
-  </script>
-
+<footer class="site-footer"><div class="footer-inner">
+  <a class="footer-name" href="index.html"><span class="lang-en">Hongyi Qian</span><span class="lang-zh">钱弘毅</span></a>
+  <span class="footer-note"><span class="lang-en">Mechanistic interpretability &amp; multimodal reasoning</span><span class="lang-zh">机制可解释性与多模态推理</span></span>
+  <span class="copyright">&copy; 2026</span>
+</div></footer>
 </body>
 </html>
