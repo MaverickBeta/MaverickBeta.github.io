@@ -3,28 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f8f7f3">
+  <meta name="theme-color" content="#ffffff">
   <title>Social Discourse Analytics | Hongyi Qian</title>
   <meta name="description" content="A project by Hongyi Qian.">
-  <link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="site.css?v=simple-20261105">
   <script src="site.js" defer></script>
 </head>
-<body lang="en" class="detail-page"><header class="site-header">
+<body lang="en" class="detail-page">
+<header class="site-header">
   <nav class="nav-container" aria-label="Main navigation">
-    <a class="wordmark" href="index.html" aria-label="Hongyi Qian home">hq<span class="wordmark-dot">.</span></a>
     <div class="nav-right">
       <div class="nav-links">
         <a href="index.html#main"><span class="lang-en">About</span><span class="lang-zh">关于</span></a>
         <a href="index.html#research"><span class="lang-en">Research</span><span class="lang-zh">研究</span></a>
         <a href="index.html#experience"><span class="lang-en">Experience</span><span class="lang-zh">经历</span></a>
-        <a href="projects.html"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a>
+        <a href="projects.html" class="active"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a>
       </div>
       <button class="lang-toggle" type="button" aria-label="Switch to Chinese"><span class="lang-en">中文</span><span class="lang-zh">EN</span></button>
     </div>
   </nav>
-</header><main class="container project-detail page-width">
+</header>
+<main class="container project-detail page-width">
 
     <a href="projects.html" class="back-link">← <span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a><!-- EN -->
     <div class="lang-en">
@@ -40,19 +39,19 @@
       <h2>Overview</h2>
       <p>This project presents an end-to-end data pipeline and interactive web-based dashboard for analyzing social discourse propagation across Chinese social media platforms (Weibo and Xiaohongshu/Rednote). We focused on the SileMa app, engineering a complete workflow from web scraping unstructured social media data to building dynamic visualizations that reveal cross-platform engagement patterns, sentiment trends, and the geographical structure of digital public arenas.</p>
       <h2>Key Contributions</h2>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">End-to-End Data Pipeline</h3>
+      <h3>End-to-End Data Pipeline</h3>
       <ul>
         <li>Engineered a web-scraping pipeline using Python and Playwright to harvest unstructured social media posts, comments, and search cards from Rednote (Xiaohongshu).</li>
         <li>Handled large-scale JSONL/CSV data cleaning and transformation to prepare raw social media data for downstream analysis.</li>
         <li>Processed multiple data formats including Weibo posts, Weibo comments, and Xiaohongshu search cards with Chinese stopword filtering.</li>
       </ul>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Natural Language Processing</h3>
+      <h3>Natural Language Processing</h3>
       <ul>
         <li>Implemented NLP workflows leveraging <strong>SnowNLP</strong> for Chinese text segmentation, keyword extraction, and sentiment analysis.</li>
         <li>Quantified public emotions and discourse trends over time across both Weibo and Xiaohongshu platforms.</li>
         <li>Applied TF-IDF analysis to extract platform-specific keywords and identify discourse patterns unique to each social media ecosystem.</li>
       </ul>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Interactive Dashboard Development</h3>
+      <h3>Interactive Dashboard Development</h3>
       <ul>
         <li>Designed and built a dynamic web-based dashboard using HTML/CSS/JavaScript with interactive time-filtering capabilities.</li>
         <li>Developed temporal timeline visualizations for cross-platform engagement tracking.</li>
@@ -60,7 +59,7 @@
         <li>Built geographic influence network visualizations showing the spatial distribution of digital discourse.</li>
         <li>Implemented sentiment distribution plots and interactive word clouds for intuitive sentiment exploration.</li>
       </ul>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Analytical Impact</h3>
+      <h3>Analytical Impact</h3>
       <div class="highlight-box">
         <p>Facilitated dynamic exploration of cross-platform (Weibo vs. Rednote) opinion formation, revealing <strong>platform-dependent discourse styles</strong> and the <strong>geographical structure of digital public arenas</strong>. The dashboard enables stakeholders to identify trending topics, sentiment shifts, and regional variations in public opinion propagation patterns.</p>
       </div>
@@ -107,19 +106,19 @@
       <h2>项目概述</h2>
       <p>本项目搭建了一套端到端的数据处理流程和交互式Web仪表盘，用于分析中国社交媒体平台（微博和小红书）上的社交 discourse 传播。我们以SileMa App为研究对象，设计了从网络爬取非结构化社交媒体数据到构建动态可视化的完整工作流，揭示跨平台互动模式、情感趋势和数字公共领域的地理结构。</p>
       <h2>主要贡献</h2>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">端到端数据流程</h3>
+      <h3>端到端数据流程</h3>
       <ul>
         <li>使用Python和Playwright构建网络爬虫流程，从小红书（Xiaohongshu）采集帖子、评论和搜索卡片等非结构化社交媒体数据。</li>
         <li>处理大规模JSONL/CSV数据清洗和转换，为下游分析准备原始社交媒体数据。</li>
         <li>处理多种数据格式，包括微博帖子、微博评论和小红书搜索卡片，并应用中文停用词过滤。</li>
       </ul>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">自然语言处理</h3>
+      <h3>自然语言处理</h3>
       <ul>
         <li>使用<strong>SnowNLP</strong>实现NLP工作流，完成中文文本分词、关键词提取和情感分析。</li>
         <li>量化微博和小红书两个平台上的公众情绪和 discourse 趋势随时间的变化。</li>
         <li>应用TF-IDF分析提取平台特有关键词，识别各社交媒体生态系统的 discourse 模式。</li>
       </ul>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">交互式仪表盘开发</h3>
+      <h3>交互式仪表盘开发</h3>
       <ul>
         <li>使用HTML/CSS/JavaScript设计并构建了动态Web仪表盘，支持交互式时间过滤。</li>
         <li>开发了跨平台互动追踪的时间线可视化。</li>
@@ -127,7 +126,7 @@
         <li>构建了地理影响网络可视化，展示数字 discourse 的空间分布。</li>
         <li>实现了情感分布图和交互式词云，用于直观的情感探索。</li>
       </ul>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">分析影响</h3>
+      <h3>分析影响</h3>
       <div class="highlight-box">
         <p>支持对跨平台（微博 vs. 小红书）舆论形成的动态探索，揭示了<strong>平台依赖的 discourse 风格</strong>和<strong>数字公共领域的地理结构</strong>。该仪表盘帮助利益相关者识别热门话题、情感变化和舆论传播的区域差异。</p>
       </div>
@@ -165,7 +164,6 @@
 
 <footer class="site-footer"><div class="footer-inner">
   <a class="footer-name" href="index.html"><span class="lang-en">Hongyi Qian</span><span class="lang-zh">钱弘毅</span></a>
-  <span class="footer-note"><span class="lang-en">Mechanistic interpretability &amp; multimodal reasoning</span><span class="lang-zh">机制可解释性与多模态推理</span></span>
   <span class="copyright">&copy; 2026</span>
 </div></footer>
 </body>

@@ -3,28 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f8f7f3">
+  <meta name="theme-color" content="#ffffff">
   <title>NBA Franchise Valuation | Hongyi Qian</title>
   <meta name="description" content="A project by Hongyi Qian.">
-  <link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="site.css?v=simple-20261105">
   <script src="site.js" defer></script>
 </head>
-<body lang="en" class="detail-page"><header class="site-header">
+<body lang="en" class="detail-page">
+<header class="site-header">
   <nav class="nav-container" aria-label="Main navigation">
-    <a class="wordmark" href="index.html" aria-label="Hongyi Qian home">hq<span class="wordmark-dot">.</span></a>
     <div class="nav-right">
       <div class="nav-links">
         <a href="index.html#main"><span class="lang-en">About</span><span class="lang-zh">关于</span></a>
         <a href="index.html#research"><span class="lang-en">Research</span><span class="lang-zh">研究</span></a>
         <a href="index.html#experience"><span class="lang-en">Experience</span><span class="lang-zh">经历</span></a>
-        <a href="projects.html"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a>
+        <a href="projects.html" class="active"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a>
       </div>
       <button class="lang-toggle" type="button" aria-label="Switch to Chinese"><span class="lang-en">中文</span><span class="lang-zh">EN</span></button>
     </div>
   </nav>
-</header><main class="container project-detail page-width">
+</header>
+<main class="container project-detail page-width">
 
     <a href="projects.html" class="back-link">← <span class="lang-en">All projects</span><span class="lang-zh">全部项目</span></a><!-- EN -->
     <div class="lang-en">
@@ -33,7 +32,7 @@
         <h1>NBA Franchise Valuation &amp; Strategy Optimization</h1>
         <div class="project-meta">Mathematical Contest in Modeling (MCM/ICM) · 4-Day Competition</div>
         <span class="badge">Successful Participant</span><br>
-        <a href="https://github.com/MaverickBeta/DKU_2026" target="_blank" class="github-btn" style="margin-top:12px;" rel="noopener noreferrer">
+        <a href="https://github.com/MaverickBeta/DKU_2026" target="_blank" class="github-btn" rel="noopener noreferrer">
           <svg viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
           View on GitHub
         </a>
@@ -56,20 +55,20 @@
 </div>
       </div>
       <h2>Key Contributions</h2>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Feature Engineering &amp; Data Pipeline</h3>
+      <h3>Feature Engineering &amp; Data Pipeline</h3>
       <ul>
         <li>Engineered a multi-level feature system from raw NBA data sourced from Basketball-Reference (2021–2025), quantifying player injury risks and team structural variance.</li>
         <li>Constructed features to evaluate both competitive and commercial potential of NBA franchises, including player performance metrics, roster stability indices, and financial indicators.</li>
         <li>Implemented strict temporal validation protocols to prevent data leakage in time-series sports prediction.</li>
       </ul>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Predictive Modeling</h3>
+      <h3>Predictive Modeling</h3>
       <ul>
         <li>Developed a <strong>cascading Gaussian Process Regression (GPR) pipeline</strong> to predict win rates, playoff progression depth, and franchise revenue from engineered features.</li>
         <li>Utilized a <strong>custom multi-horizon validation strategy</strong> that strictly eliminates temporal data leakage by training on past seasons and testing on future seasons.</li>
         <li>Compared GPR against Random Forest baseline models; GPR showed superior uncertainty quantification for sparse injury-risk scenarios.</li>
         <li>Conducted hyperparameter optimization via grid search with walk-forward cross-validation.</li>
       </ul>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">Monte Carlo Strategy Optimization</h3>
+      <h3>Monte Carlo Strategy Optimization</h3>
       <ul>
         <li>Designed a <strong>Monte Carlo simulation engine</strong> integrating NBA luxury tax constraints and price elasticity models.</li>
         <li>Optimized a complex decision space across roster trades, player load management, and dynamic ticketing pricing to maximize long-term franchise ROI.</li>
@@ -94,7 +93,7 @@
         <h1>NBA 球队估值与策略优化</h1>
         <div class="project-meta">数学建模竞赛（MCM/ICM）· 四天竞赛</div>
         <span class="badge">成功参赛奖</span><br>
-        <a href="https://github.com/MaverickBeta/DKU_2026" target="_blank" class="github-btn" style="margin-top:12px;" rel="noopener noreferrer">
+        <a href="https://github.com/MaverickBeta/DKU_2026" target="_blank" class="github-btn" rel="noopener noreferrer">
           <svg viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
           在 GitHub 上查看
         </a>
@@ -117,20 +116,20 @@
 </div>
       </div>
       <h2>主要贡献</h2>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">特征工程与数据流程</h3>
+      <h3>特征工程与数据流程</h3>
       <ul>
         <li>从Basketball-Reference（2021–2025）的NBA原始数据中构建多层次特征系统，量化球员伤病风险和球队结构差异。</li>
         <li>构建特征以评估NBA球队的竞技潜力和商业潜力，包括球员表现指标、阵容稳定性指数和财务指标。</li>
         <li>实施严格的时间序列验证协议，防止体育预测中的数据泄露。</li>
       </ul>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">预测建模</h3>
+      <h3>预测建模</h3>
       <ul>
         <li>开发了<strong>级联高斯过程回归（GPR）流程</strong>，从工程特征中预测胜率、季后赛深度和球队收入。</li>
         <li>采用<strong>自定义多 horizon 验证策略</strong>，通过过去赛季训练、未来赛季测试，严格消除时间数据泄露。</li>
         <li>将GPR与随机森林基线模型对比；GPR在稀疏伤病风险场景中表现出更优的不确定性量化能力。</li>
         <li>通过前向交叉验证的网格搜索进行超参数优化。</li>
       </ul>
-      <h3 style="font-size:15px;font-weight:600;color:var(--text);margin:20px 0 10px;">蒙特卡洛策略优化</h3>
+      <h3>蒙特卡洛策略优化</h3>
       <ul>
         <li>设计了整合NBA奢侈税约束和价格弹性模型的<strong>蒙特卡洛模拟引擎</strong>。</li>
         <li>在阵容交易、球员负荷管理和动态票务定价的复杂决策空间中进行优化，最大化长期球队投资回报。</li>
@@ -153,7 +152,6 @@
 
 <footer class="site-footer"><div class="footer-inner">
   <a class="footer-name" href="index.html"><span class="lang-en">Hongyi Qian</span><span class="lang-zh">钱弘毅</span></a>
-  <span class="footer-note"><span class="lang-en">Mechanistic interpretability &amp; multimodal reasoning</span><span class="lang-zh">机制可解释性与多模态推理</span></span>
   <span class="copyright">&copy; 2026</span>
 </div></footer>
 </body>
